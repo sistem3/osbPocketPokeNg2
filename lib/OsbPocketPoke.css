@@ -1,6 +1,8 @@
 [override] osb-pocket-poke h1, [override] osb-pocket-poke h2, [override] osb-pocket-poke h3, [override] osb-pocket-poke h4, [override] osb-pocket-poke h5, [override] osb-pocket-poke p {
   font-family: 'Roboto', sans-serif;
-  font-weight: 300;
+  font-weight: 300; }
+
+[override] osb-pocket-poke h2, [override] osb-pocket-poke h3, [override] osb-pocket-poke h4, [override] osb-pocket-poke h5, [override] osb-pocket-poke p {
   color: #000; }
 
 .osb-pocket-poke-holder .btn-primary {
