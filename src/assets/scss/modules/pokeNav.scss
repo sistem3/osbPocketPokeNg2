@@ -1,0 +1,21 @@
+[override] osb-pocket-poke {
+  header {
+    h1, nav {
+      display: inline-block;
+    }
+
+    nav {
+      margin-left: 10px;
+      position: relative;
+      top: -10px;
+
+      li:last-child {
+        i {
+          font-size: 30px;
+          position: relative;
+          top: 6px;
+        }
+      }
+    }
+  }
+}

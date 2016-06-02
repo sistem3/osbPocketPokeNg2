@@ -1,0 +1,147 @@
+<main class="osb-pocket-poke-holder">
+    <header class="container">
+        <h1><i class="poke-icon poke-icon-pokeball"></i> PocketPoké</h1>
+        <nav>
+            <ul class="list-unstyled list-inline">
+                <li><button class="btn btn-primary" (click)="navHidden = !navHidden"><i class="fa fa-bars"></i></button></li>
+                <li *ngIf="!navHidden"><button class="btn btn-primary" (click)="sectionDisplay = 'pokemon'"><i class="poke-icon poke-icon-pokeball-open"></i> Pokémon</button></li>
+                <li *ngIf="!navHidden"><button class="btn btn-primary" (click)="getLocations()"><i class="fa fa-map-marker"></i> Locations</button></li>
+                <li *ngIf="!navHidden"><button class="btn btn-primary" (click)="getEvolutionChain()"><i class="poke-icon poke-icon-strain"></i> Evolution</button></li>
+                <li *ngIf="!navHidden"><button class="btn btn-primary" (click)="getBerries()"><i class="poke-icon poke-icon-berry"></i> Berries</button></li>
+                <li *ngIf="!navHidden"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></li>
+                <li (click)="navHidden = !navHidden"><i class="fa" [ngClass]="{'fa-angle-right' : navHidden, 'fa-angle-left' : !navHidden}"></i></li>
+            </ul>
+        </nav>
+    </header>
+    <section *ngIf="pokemon.length > 1 && sectionDisplay === 'pokemon'" class="pokeDex">
+        <ul class="pokeList list-unstyled">
+            <li *ngFor="let poke of pokemon" class="pokeListItem">
+                <div id="sprite-{{poke.name}}" class="img-holder text-center">
+                    <div *ngIf="!poke.showFemale">
+                        <img *ngIf="!poke.showBack" src="{{poke.sprites.front_default}}" alt="{{poke.name}}" title="{{poke.name}}" />
+                        <img *ngIf="poke.showBack" src="{{poke.sprites.back_default}}" alt="{{poke.name}}" title="{{poke.name}}" />
+                        <div (click)="poke.showBack = true" *ngIf="!poke.showBack" class="spriteBackBtn"><i class="fa fa-chevron-right"></i></div>
+                        <div (click)="poke.showBack = false" *ngIf="poke.showBack" class="spriteFrontBtn"><i class="fa fa-chevron-left"></i></div>
+                    </div>
+                    <div *ngIf="poke.showFemale">
+                        <img *ngIf="!poke.showFemBack" src="{{poke.sprites.front_female}}" alt="{{poke.name}}" title="{{poke.name}}" />
+                        <img *ngIf="poke.showFemBack" src="{{poke.sprites.back_female}}" alt="{{poke.name}}" title="{{poke.name}}" />
+                        <div (click)="poke.showFemBack = true" *ngIf="!poke.showFemBack" class="spriteBackBtn"><i class="fa fa-chevron-right"></i></div>
+                        <div (click)="poke.showFemBack = false" *ngIf="poke.showFemBack" class="spriteFrontBtn"><i class="fa fa-chevron-left"></i></div>
+                    </div>
+                    <div (click)="poke.showFemale = !poke.showFemale" *ngIf="poke.sprites.front_female" class="sexToggle" [ngClass]="{'male' : poke.showFemale, 'female' : !poke.showFemale}">
+                        <i class="fa" [ngClass]="{'fa-female' : !poke.showFemale, 'fa-male' : poke.showFemale}"></i>
+                    </div>
+                    <div  *ngIf="poke.sprites.front_female" class="shinyToggle">
+                        <i class="fa fa-diamond"></i> <span>Shiny</span>
+                    </div>
+                    <div class="typeHolder">
+                        <div *ngFor="let type of poke.types" class="typeIcon type-{{type.type.name}}" title="Type: {{type.type.name}}">
+                            <i class="poke-icon poke-icon-{{type.type.name}}"></i>
+                        </div>
+                    </div>
+                    <div class="spriteBg"></div>
+                </div>
+                <h2>{{ poke.name }} <span class="pull-right"><i class="poke-icon poke-icon-pokeball-open"></i></span></h2>
+                <p><strong>Height:</strong> {{ poke.height }} | <strong>Weight:</strong> {{ poke.weight }} | <strong>Base XP:</strong> {{ poke.base_experience }}</p>
+                <h4 (click)="poke.statsVisible = !poke.statsVisible" class="details">Attributes <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !poke.statsVisible, 'fa-chevron-up' : poke.statsVisible}"></i></h4>
+                <ul class="list-unstyled details-list" [hidden]="!poke.statsVisible">
+                    <li *ngFor="let stats of poke.stats">
+                        <p><strong>{{stats.stat.name}}</strong> <span class="pull-right">{{stats.base_stat}}</span></p>
+                    </li>
+                </ul>
+                <h4 (click)="poke.abilitiesVisible = !poke.abilitiesVisible" class="details">Abilities <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !poke.abilitiesVisible, 'fa-chevron-up' : poke.abilitiesVisible}"></i></h4>
+                <ul class="list-unstyled details-list" [hidden]="!poke.abilitiesVisible">
+                    <li *ngFor="let ability of poke.abilities">
+                        <p>{{ability.ability.name}} <i class="fa fa-info-circle pull-right"></i></p>
+                    </li>
+                </ul>
+                <h4 (click)="poke.movesVisible = !poke.movesVisible" class="details">Moves <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !poke.movesVisible, 'fa-chevron-up' : poke.movesVisible}"></i></h4>
+                <ul class="list-unstyled details-list moves" [hidden]="!poke.movesVisible">
+                    <li *ngFor="let move of poke.moves">
+                        <p><i class="fa fa-star"></i> {{move.move.name}}</p>
+                    </li>
+                </ul>
+            </li>
+            <li class="pokeListItem">
+                <div id="loading-trigger" class="img-holder text-center">
+                    <div class="spriteBg"></div>
+                </div>
+                <h2>Loading...</h2>
+            </li>
+        </ul>
+    </section>
+    <section *ngIf="sectionDisplay === 'locations'" class="pokeEvol">
+        <ul class="pokeList list-unstyled">
+            <li *ngFor="let location of locationData" class="pokeListItem">
+                <h3>{{ location.name }}</h3>
+                <p>Region: {{ location.region.name }}</p>
+                <h4 (click)="areasHidden = !areasHidden">Areas: <span class="pull-right"><i class="fa" [ngClass]="{'fa-angle-down' : areasHidden, 'fa-angle-up' : !areasHidden}"></i></span></h4>
+                <ul>
+                    <li *ngFor="let area of location.areas">{{ area.name }}</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section *ngIf="sectionDisplay === 'evolution'" class="pokeEvol">
+        <ul class="pokeList list-unstyled">
+            <li *ngFor="let evolution of evolutions" class="text-center pokeListItem">
+                <article class="col-md-8 chain">
+                    <h5>{{ evolution.chain.species.name }}</h5>
+                    <div><i class="fa fa-angle-down"></i></div>
+                    <h4 *ngIf="evolution.chain.evolves_to[0].species">{{ evolution.chain.evolves_to[0].species.name }}</h4>
+                    <p>
+                        <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_level">Min-Level = {{ evolution.chain.evolves_to[0].evolution_details.min_level }}</span>
+                        <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_happiness">Min-Happiness = {{ evolution.chain.evolves_to[0].evolution_details.min_happiness }}</span>
+                        <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_beauty">Min-Beauty = {{ evolution.chain.evolves_to[0].evolution_details.min_beauty }}</span>
+                    </p>
+                    <div *ngIf="evolution.chain.evolves_to[0].evolves_to[0]"><i class="fa fa-angle-down"></i></div>
+                    <h3 *ngIf="evolution.chain.evolves_to[0].evolves_to[0]">{{ evolution.chain.evolves_to[0].evolves_to[0].species.name }}</h3>
+                    <p *ngIf="evolution.chain.evolves_to[0].evolves_to[0]">
+                        <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_level">Min-Level = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_level }}</span>
+                        <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_happiness">Min-Happiness = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_happiness }}</span>
+                        <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_beauty">Min-Beauty = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_beauty }}</span>
+                    </p>
+                </article>
+                <div class="col-md-4 sprites">
+                    <div></div>
+                </div>
+            </li>
+            <li class="pokeListItem">
+                <h2>Loading...</h2>
+            </li>
+        </ul>
+    </section>
+    <section *ngIf="berriesData.length > 1 && sectionDisplay === 'berries'" class="pokeDex">
+        <ul class="pokeList list-unstyled">
+            <li *ngFor="let berry of berriesData" class="pokeListItem">
+                <h3 class="text-center">{{ berry.name }}</h3>
+                <div class="col-md-8">
+                    <h4>Stats</h4>
+                    <ul class="list-unstyled">
+                        <li>Size: {{ berry.size }}</li>
+                        <li>Max Harvest: {{ berry.max_harvest }}</li>
+                        <li>Firmness: {{ berry.firmness.name }}</li>
+                        <li>Smoothness: {{ berry.smoothness }}</li>
+                        <li>Soil Dryness: {{ berry.soil_dryness }}</li>
+                        <li>Growth Time: {{ berry.growth_time }}</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>Flavours</h4>
+                    <ul class="list-unstyled">
+                        <li *ngFor="let flavor of berry.flavors">
+                            {{ flavor.flavor.name }} <span>{{ flavor.potency }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-12">
+                    <h4>Natural Gift</h4>
+                    <div class="typeIcon type-{{berry.natural_gift_type.name}}" title="Type: {{berry.natural_gift_type.name}}">
+                        <i class="poke-icon poke-icon-{{berry.natural_gift_type.name}}"></i> Power: {{berry.natural_gift_power}}
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+</main>

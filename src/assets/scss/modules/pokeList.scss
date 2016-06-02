@@ -1,0 +1,159 @@
+[override] osb-pocket-poke {
+  .pokeDex {
+    border-top: 1px solid $color-black;
+  }
+
+  .pokeList {
+    margin-bottom: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+    h2 {
+      text-transform: capitalize;
+    }
+
+    .img-holder {
+      min-width: 120px;
+      min-height: 150px;
+      background: $azures-radiance;
+      border-bottom: 1px solid $color-white;
+      position: relative;
+
+      img {
+        margin: 25px auto;
+        position: relative;
+        z-index: 2;
+      }
+      
+      .spriteBg {
+        width: 100%;
+        min-height: 80px;
+        background: $japanese-laurel;
+        border-top: 1px solid mix($color-white, $japanese-laurel, 30);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+      }
+      
+      .spriteBackBtn, .spriteFrontBtn {
+        font-size: 21px;
+        color: $color-white;
+        position: absolute;
+        top: 50%;
+        z-index: 2;
+      }
+
+      .spriteBackBtn {
+        right: 15px;
+      }
+
+      .spriteFrontBtn {
+        left: 15px;
+      }
+
+      .shinyToggle, .sexToggle {
+        height: 30px;
+        font-size: 19px;
+        color: $color-white;
+        position: absolute;
+        z-index: 2;
+        cursor: pointer;
+
+        i {
+          position: relative;
+          left: 1px;
+        }
+      }
+
+      .shinyToggle {
+        width: 70px;
+        background: rgba($color-black, 0.5);
+        top: 0;
+        left: 30px;
+        border-bottom-right-radius: 6px;
+        border-bottom: 1px solid $color-black;
+        border-right: 1px solid $color-black;
+        border-left: 1px solid $color-black;
+
+        span {
+          font-size: 11px;
+          position: relative;
+          top: -3px;
+        }
+      }
+
+      .sexToggle {
+        width: 30px;
+        top: 0;
+        left: 0;
+        border-bottom: 1px solid $color-black;
+
+        &.male {
+          background: $cerulean;
+        }
+
+        &.female {
+          background: $fushia;
+        }
+      }
+    }
+
+    .pokeListItem {
+      box-sizing: border-box;
+      text-transform: capitalize;
+      -webkit-flex: 1 1 25%;
+      flex: 1 1 25%;
+      border-right: 1px solid $color-black;
+      border-bottom: 1px solid $color-black;
+      background-color: $anikwa;
+
+      @media (max-width: $breakpoint-medium) {
+        -webkit-flex: 1 1 33.333%;
+        flex: 1 1 33.333%;
+      }
+
+      @media (max-width: $breakpoint-x-small) {
+        -webkit-flex: 1 1 50%;
+        flex: 1 1 50%;
+      }
+
+      h2, p {
+        margin: 10px;
+      }
+
+      .details {
+        padding: 10px;
+        margin: 0;
+        background-color: $malibu;
+        border-top: 1px solid $color-black;
+      }
+
+      .details-list {
+        li {
+          border-right: 0;
+
+          &:last-child {
+            border-bottom: 0;
+          }
+
+          &:first-child {
+            border-top: 1px solid $color-black;
+          }
+        }
+      }
+
+      .moves {
+        li {
+          width: 50%;
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

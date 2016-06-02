@@ -1,0 +1,156 @@
+.typeHolder {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+
+  .typeIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    border: 3px solid $color-black;
+    font-size: 26px;
+  }
+}
+
+.type-normal {
+  background-color: $color-white;
+}
+
+.type-fire {
+  background-color: $selective-yellow;
+
+  i {
+    color: mix($guardsman-red, $selective-yellow, 30);
+  }
+}
+
+.type-water {
+  background-color: $robins-egg-blue;
+
+  i {
+    color: mix($color-black, $robins-egg-blue, 30);
+  }
+}
+
+.type-electric {
+  background-color: $aquamarine;
+
+  i {
+    color: mix($color-black, $aquamarine, 30);
+  }
+}
+
+.type-grass {
+  background-color: $japanese-laurel;
+
+  i {
+    color: mix($color-white, $japanese-laurel, 30);
+  }
+}
+
+.type-ice {
+  background-color: $morning-glory;
+
+  i {
+    color: mix($color-black, $morning-glory, 30);
+  }
+}
+
+.type-fighting {
+  background-color: $guardsman-red;
+
+  i {
+    color: rgba($color-black, 0.4);
+  }
+}
+
+.type-poison {
+  background-color: $purple;
+  
+  i {
+    color: mix($color-white, $purple, 40);
+  }
+}
+
+.type-ground {
+  background-color: $raw-umber;
+
+  i {
+    color: mix($color-white, $raw-umber, 30);
+  }
+}
+
+.type-flying {
+  background-color: $bright-turquoise;
+
+  i {
+    color: mix($color-black, $bright-turquoise, 30);
+  }
+}
+
+.type-psychic {
+  background-color: $fushia;
+
+  i {
+    color: mix($color-black, $fushia, 30);
+  }
+}
+
+.type-bug {
+  background-color: $limeade;
+
+  i {
+    color: mix($color-black, $limeade, 30);
+  }
+}
+
+.type-rock {
+  background-color: $gray;
+
+  i {
+    color: mix($color-black, $gray, 30);
+  }
+}
+
+.type-ghost {
+  background-color: $eminence;
+
+  i {
+    color: mix($color-white, $eminence, 30);
+  }
+}
+
+.type-dragon {
+  background-color: $valencia;
+
+  i {
+    color: mix($color-black, $valencia, 30);
+  }
+}
+
+.type-dark {
+  background-color: $mirage;
+
+  i {
+    color: $color-black;
+  }
+}
+
+.type-steel {
+  background-color: $gray-suit;
+
+  i {
+    color: mix($color-white, $gray-suit, 30);
+  }
+}
+
+.type-fairy {
+  background-color: $mauve;
+
+  i {
+    font-size: 21px;
+    color: mix($color-black, $mauve, 30);
+  }
+}

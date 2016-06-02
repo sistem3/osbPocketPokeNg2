@@ -1,0 +1,11 @@
+[override] osb-pocket-poke {
+  .pokeEvol {
+    border-top: 1px solid $color-black;
+
+    li {
+      h3, h4, h5 {
+        margin: 10px 0;
+      }
+    }
+  }
+}
