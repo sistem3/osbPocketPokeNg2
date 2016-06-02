@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'poke-icons';
   src:    url($poke-font-base-path + 'poke-icons.eot?1c0iqf');
-  src:    url($poke-font-base-path + '/poke-icons.eot?1c0iqf#iefix') format('embedded-opentype'),
-  url($poke-font-base-path + '/poke-icons.ttf?1c0iqf') format('truetype'),
-  url($poke-font-base-path + '/poke-icons.woff?1c0iqf') format('woff'),
-  url($poke-font-base-path + '/poke-icons.svg?1c0iqf#poke-icons') format('svg');
+  src:    url($poke-font-base-path + 'poke-icons.eot?1c0iqf#iefix') format('embedded-opentype'),
+  url($poke-font-base-path + 'poke-icons.ttf?1c0iqf') format('truetype'),
+  url($poke-font-base-path + 'poke-icons.woff?1c0iqf') format('woff'),
+  url($poke-font-base-path + 'poke-icons.svg?1c0iqf#poke-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
