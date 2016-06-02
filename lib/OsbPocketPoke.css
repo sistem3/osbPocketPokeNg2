@@ -20,8 +20,8 @@
 
 @font-face {
   font-family: 'poke-icons';
-  src: url("vendor/osb-pocket-poke/lib/fonts/poke-icons.eot?1c0iqf");
-  src: url("vendor/osb-pocket-poke/lib/fonts//poke-icons.eot?1c0iqf#iefix") format("embedded-opentype"), url("vendor/osb-pocket-poke/lib/fonts//poke-icons.ttf?1c0iqf") format("truetype"), url("vendor/osb-pocket-poke/lib/fonts//poke-icons.woff?1c0iqf") format("woff"), url("vendor/osb-pocket-poke/lib/fonts//poke-icons.svg?1c0iqf#poke-icons") format("svg");
+  src: url("node_modules/osb-pocket-poke/lib/fonts/poke-icons.eot?1c0iqf");
+  src: url("node_modules/osb-pocket-poke/lib/fonts//poke-icons.eot?1c0iqf#iefix") format("embedded-opentype"), url("node_modules/osb-pocket-poke/lib/fonts//poke-icons.ttf?1c0iqf") format("truetype"), url("node_modules/osb-pocket-poke/lib/fonts//poke-icons.woff?1c0iqf") format("woff"), url("node_modules/osb-pocket-poke/lib/fonts//poke-icons.svg?1c0iqf#poke-icons") format("svg");
   font-weight: normal;
   font-style: normal; }
 
