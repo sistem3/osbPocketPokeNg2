@@ -1,0 +1,334 @@
+[override] osb-pocket-poke h1, [override] osb-pocket-poke h2, [override] osb-pocket-poke h3, [override] osb-pocket-poke h4, [override] osb-pocket-poke h5, [override] osb-pocket-poke p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  color: #000; }
+
+.osb-pocket-poke-holder .btn-primary {
+  background-color: #0285E3;
+  background-image: none;
+  box-shadow: 0 2px 0 0 rgba(0, 42, 71, 0.7);
+  border: 0; }
+  .osb-pocket-poke-holder .btn-primary:hover {
+    background-color: #0065AD; }
+  .osb-pocket-poke-holder .btn-primary:active, .osb-pocket-poke-holder .btn-primary.active {
+    background-color: #0065AD;
+    box-shadow: none;
+    margin-bottom: -2px;
+    margin-top: 2px; }
+  .osb-pocket-poke-holder .btn-primary:focus {
+    outline: none; }
+
+@font-face {
+  font-family: 'poke-icons';
+  src: url("/fonts/poke-icons.eot?1c0iqf");
+  src: url("/fonts/poke-icons.eot?1c0iqf#iefix") format("embedded-opentype"), url("/fonts/poke-icons.ttf?1c0iqf") format("truetype"), url("/fonts/poke-icons.woff?1c0iqf") format("woff"), url("/fonts/poke-icons.svg?1c0iqf#poke-icons") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[class^='poke-icon'], [class*=' poke-icon'] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'poke-icons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.poke-icon-berry:before {
+  content: '\e912'; }
+
+.poke-icon-strain:before {
+  content: '\e913'; }
+
+.poke-icon-fairy:before {
+  content: '\e907'; }
+
+.poke-icon-flying:before {
+  content: '\e908'; }
+
+.poke-icon-ghost:before {
+  content: '\e90b'; }
+
+.poke-icon-ice:before {
+  content: '\e90d'; }
+
+.poke-icon-steel:before {
+  content: '\e919'; }
+
+.poke-icon-pokeball-open:before {
+  content: '\e910'; }
+
+.poke-icon-pokeball-out:before {
+  content: '\e911'; }
+
+.poke-icon-poison:before {
+  content: '\e90f'; }
+
+.poke-icon-rock:before {
+  content: '\e90c'; }
+
+.poke-icon-dragon:before {
+  content: '\e902'; }
+
+.poke-icon-pokeball:before {
+  content: '\e900'; }
+
+.poke-icon-dark:before {
+  content: '\e90a'; }
+
+.poke-icon-bug:before {
+  content: '\f091'; }
+
+.poke-icon-fire:before {
+  content: '\f0d2'; }
+
+.poke-icon-water:before {
+  content: '\e901'; }
+
+.poke-icon-normal:before {
+  content: '\e90e'; }
+
+.poke-icon-electric:before {
+  content: '\e903'; }
+
+.poke-icon-ground:before {
+  content: '\e909'; }
+
+.poke-icon-grass:before {
+  content: '\e904'; }
+
+.poke-icon-psychic:before {
+  content: '\e905'; }
+
+.poke-icon-fighting:before {
+  content: '\e906'; }
+
+[override] osb-pocket-poke header h1, [override] osb-pocket-poke header nav {
+  display: inline-block; }
+
+[override] osb-pocket-poke header nav {
+  margin-left: 10px;
+  position: relative;
+  top: -10px; }
+  [override] osb-pocket-poke header nav li:last-child i {
+    font-size: 30px;
+    position: relative;
+    top: 6px; }
+
+.typeHolder {
+  position: absolute;
+  right: 5px;
+  top: 5px; }
+  .typeHolder .typeIcon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 5px;
+    border: 3px solid #000;
+    font-size: 26px; }
+
+.type-normal {
+  background-color: #FFF; }
+
+.type-fire {
+  background-color: #FFB300; }
+  .type-fire i {
+    color: #f07d00; }
+
+.type-water {
+  background-color: #00BDD6; }
+  .type-water i {
+    color: #008496; }
+
+.type-electric {
+  background-color: #6EF8FF; }
+  .type-electric i {
+    color: #4daeb3; }
+
+.type-grass {
+  background-color: #0C851A; }
+  .type-grass i {
+    color: #55aa5f; }
+
+.type-ice {
+  background-color: #A2D3DE; }
+  .type-ice i {
+    color: #71949b; }
+
+.type-fighting {
+  background-color: #CC0000; }
+  .type-fighting i {
+    color: rgba(0, 0, 0, 0.4); }
+
+.type-poison {
+  background-color: #6600CC; }
+  .type-poison i {
+    color: #a366e0; }
+
+.type-ground {
+  background-color: #804B13; }
+  .type-ground i {
+    color: #a6815a; }
+
+.type-flying {
+  background-color: #00DCF5; }
+  .type-flying i {
+    color: #009aac; }
+
+.type-psychic {
+  background-color: #FF00EA; }
+  .type-psychic i {
+    color: #b300a4; }
+
+.type-bug {
+  background-color: #37AB02; }
+  .type-bug i {
+    color: #277801; }
+
+.type-rock {
+  background-color: #808080; }
+  .type-rock i {
+    color: #5a5a5a; }
+
+.type-ghost {
+  background-color: #5B3175; }
+  .type-ghost i {
+    color: #8c6f9e; }
+
+.type-dragon {
+  background-color: #D93D44; }
+  .type-dragon i {
+    color: #982b30; }
+
+.type-dark {
+  background-color: #1C1A33; }
+  .type-dark i {
+    color: #000; }
+
+.type-steel {
+  background-color: #C8C7D1; }
+  .type-steel i {
+    color: #d9d8df; }
+
+.type-fairy {
+  background-color: #FBA8FF; }
+  .type-fairy i {
+    font-size: 21px;
+    color: #b076b3; }
+
+[override] osb-pocket-poke .pokeDex {
+  border-top: 1px solid #000; }
+
+[override] osb-pocket-poke .pokeList {
+  margin-bottom: 0;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap; }
+  [override] osb-pocket-poke .pokeList h2 {
+    text-transform: capitalize; }
+  [override] osb-pocket-poke .pokeList .img-holder {
+    min-width: 120px;
+    min-height: 150px;
+    background: #007FEB;
+    border-bottom: 1px solid #FFF;
+    position: relative; }
+    [override] osb-pocket-poke .pokeList .img-holder img {
+      margin: 25px auto;
+      position: relative;
+      z-index: 2; }
+    [override] osb-pocket-poke .pokeList .img-holder .spriteBg {
+      width: 100%;
+      min-height: 80px;
+      background: #0C851A;
+      border-top: 1px solid #55aa5f;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1; }
+    [override] osb-pocket-poke .pokeList .img-holder .spriteBackBtn, [override] osb-pocket-poke .pokeList .img-holder .spriteFrontBtn {
+      font-size: 21px;
+      color: #FFF;
+      position: absolute;
+      top: 50%;
+      z-index: 2; }
+    [override] osb-pocket-poke .pokeList .img-holder .spriteBackBtn {
+      right: 15px; }
+    [override] osb-pocket-poke .pokeList .img-holder .spriteFrontBtn {
+      left: 15px; }
+    [override] osb-pocket-poke .pokeList .img-holder .shinyToggle, [override] osb-pocket-poke .pokeList .img-holder .sexToggle {
+      height: 30px;
+      font-size: 19px;
+      color: #FFF;
+      position: absolute;
+      z-index: 2;
+      cursor: pointer; }
+      [override] osb-pocket-poke .pokeList .img-holder .shinyToggle i, [override] osb-pocket-poke .pokeList .img-holder .sexToggle i {
+        position: relative;
+        left: 1px; }
+    [override] osb-pocket-poke .pokeList .img-holder .shinyToggle {
+      width: 70px;
+      background: rgba(0, 0, 0, 0.5);
+      top: 0;
+      left: 30px;
+      border-bottom-right-radius: 6px;
+      border-bottom: 1px solid #000;
+      border-right: 1px solid #000;
+      border-left: 1px solid #000; }
+      [override] osb-pocket-poke .pokeList .img-holder .shinyToggle span {
+        font-size: 11px;
+        position: relative;
+        top: -3px; }
+    [override] osb-pocket-poke .pokeList .img-holder .sexToggle {
+      width: 30px;
+      top: 0;
+      left: 0;
+      border-bottom: 1px solid #000; }
+      [override] osb-pocket-poke .pokeList .img-holder .sexToggle.male {
+        background: #00AAF2; }
+      [override] osb-pocket-poke .pokeList .img-holder .sexToggle.female {
+        background: #FF00EA; }
+  [override] osb-pocket-poke .pokeList .pokeListItem {
+    box-sizing: border-box;
+    text-transform: capitalize;
+    -webkit-flex: 1 1 25%;
+    flex: 1 1 25%;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    background-color: #A8D7FF; }
+    @media (max-width: 990px) {
+      [override] osb-pocket-poke .pokeList .pokeListItem {
+        -webkit-flex: 1 1 33.333%;
+        flex: 1 1 33.333%; } }
+    @media (max-width: 640px) {
+      [override] osb-pocket-poke .pokeList .pokeListItem {
+        -webkit-flex: 1 1 50%;
+        flex: 1 1 50%; } }
+    [override] osb-pocket-poke .pokeList .pokeListItem h2, [override] osb-pocket-poke .pokeList .pokeListItem p {
+      margin: 10px; }
+    [override] osb-pocket-poke .pokeList .pokeListItem .details {
+      padding: 10px;
+      margin: 0;
+      background-color: #5AB0FA;
+      border-top: 1px solid #000; }
+    [override] osb-pocket-poke .pokeList .pokeListItem .details-list li {
+      border-right: 0; }
+      [override] osb-pocket-poke .pokeList .pokeListItem .details-list li:last-child {
+        border-bottom: 0; }
+      [override] osb-pocket-poke .pokeList .pokeListItem .details-list li:first-child {
+        border-top: 1px solid #000; }
+    [override] osb-pocket-poke .pokeList .pokeListItem .moves li {
+      width: 50%;
+      display: inline-block; }
+
+[override] osb-pocket-poke .pokeEvol {
+  border-top: 1px solid #000; }
+  [override] osb-pocket-poke .pokeEvol li h3, [override] osb-pocket-poke .pokeEvol li h4, [override] osb-pocket-poke .pokeEvol li h5 {
+    margin: 10px 0; }
