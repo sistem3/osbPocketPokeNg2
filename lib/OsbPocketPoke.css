@@ -131,7 +131,7 @@
     border-radius: 50%;
     display: inline-block;
     margin-left: 5px;
-    border: 3px solid #000;
+    border: 2px solid #000;
     font-size: 26px; }
 
 .type-normal {
@@ -239,7 +239,7 @@
   [override] osb-pocket-poke .pokeList .img-holder {
     min-width: 120px;
     min-height: 150px;
-    background: #007FEB;
+    background: #77d0f0;
     border-bottom: 1px solid #FFF;
     position: relative; }
     [override] osb-pocket-poke .pokeList .img-holder img {
@@ -249,8 +249,8 @@
     [override] osb-pocket-poke .pokeList .img-holder .spriteBg {
       width: 100%;
       min-height: 80px;
-      background: #0C851A;
-      border-top: 1px solid #55aa5f;
+      background: #97c85f;
+      border-top: 1px solid #b6d98f;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -304,7 +304,7 @@
     flex: 1 1 25%;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
-    background-color: #A8D7FF; }
+    background-color: #8f8fa7; }
     @media (max-width: 990px) {
       [override] osb-pocket-poke .pokeList .pokeListItem {
         -webkit-flex: 1 1 33.333%;
@@ -318,7 +318,7 @@
     [override] osb-pocket-poke .pokeList .pokeListItem .details {
       padding: 10px;
       margin: 0;
-      background-color: #5AB0FA;
+      background-color: #378787;
       border-top: 1px solid #000; }
     [override] osb-pocket-poke .pokeList .pokeListItem .details-list li {
       border-right: 0; }
