@@ -16,6 +16,8 @@
 
 .type-normal {
   background-color: $color-white;
+  position: relative;
+  top: 2px;
 }
 
 .type-fire {
@@ -68,6 +70,8 @@
 
 .type-poison {
   background-color: $purple;
+  position: relative;
+  top: 1px;
   
   i {
     color: mix($color-white, $purple, 40);

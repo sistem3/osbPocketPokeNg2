@@ -111,7 +111,7 @@
       flex: 1 1 25%;
       border-right: 1px solid $color-black;
       border-bottom: 1px solid $color-black;
-      background-color: $manatee;
+      background-color: $alabaster;
 
       @media (max-width: $breakpoint-medium) {
         -webkit-flex: 1 1 33.333%;
@@ -137,6 +137,8 @@
       .details-list {
         li {
           border-right: 0;
+          background: $keppel;
+          border-bottom: 1px solid rgba($color-white, 0.5);
 
           &:last-child {
             border-bottom: 0;
@@ -144,6 +146,11 @@
 
           &:first-child {
             border-top: 1px solid $color-black;
+          }
+
+          p {
+            margin: 0;
+            padding: 10px;
           }
         }
       }

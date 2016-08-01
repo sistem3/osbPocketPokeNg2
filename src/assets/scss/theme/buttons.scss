@@ -21,4 +21,10 @@ $button-drop-size:  2px;
       outline: none;
     }
   }
+
+  .active {
+    .btn-primary {
+      background-color: $endeavour;
+    }
+  }
 }
