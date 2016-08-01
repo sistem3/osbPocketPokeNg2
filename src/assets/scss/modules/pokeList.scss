@@ -17,6 +17,59 @@
       text-transform: capitalize;
     }
 
+    .pokeball-holder {
+      width: 30px;
+      height: 30px;
+      position: relative;
+      cursor: pointer;
+
+      .top-half {
+        width: 30px;
+        height: 15px;
+        background: $guardsman-red;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        border-radius: 15px 15px 0 0;
+        -moz-border-radius: 15px 15px 0 0;
+        -webkit-border-radius: 15px 15px 0 0;
+      }
+
+      .bottom-half {
+        width: 30px;
+        height: 15px;
+        background: $color-white;
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        border-radius: 0 0 15px 15px;
+        -moz-border-radius: 0 0 15px 15px;
+        -webkit-border-radius: 0 0 15px 15px;
+      }
+
+      .center {
+        width: 8px;
+        height: 8px;
+        background: $color-white;
+        border-radius: 50%;
+        -moz-border-radius: 50%;
+        -webkit-border-radius: 50%;
+        position: absolute;
+        top: 11px;
+        left: 11px;
+        z-index: 3;
+      }
+
+      i {
+        position: relative;
+        z-index: 2;
+      }
+    }
+
     .img-holder {
       min-width: 120px;
       min-height: 150px;
@@ -44,6 +97,7 @@
       .spriteBackBtn, .spriteFrontBtn {
         font-size: 21px;
         color: $color-white;
+        cursor: pointer;
         position: absolute;
         top: 50%;
         z-index: 2;
@@ -132,6 +186,7 @@
         margin: 0;
         background-color: $paradiso;
         border-top: 1px solid $color-black;
+        cursor: pointer;
       }
 
       .details-list {

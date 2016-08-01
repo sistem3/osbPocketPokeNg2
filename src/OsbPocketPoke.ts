@@ -5,8 +5,8 @@ declare let ScrollMagic;
 
 @Component({
     selector: 'osb-pocket-poke',
-    templateUrl: 'vendor/osb-pocket-poke/lib/OsbPocketPoke.html',
-    styleUrls: ['vendor/osb-pocket-poke/lib/OsbPocketPoke.css']
+    templateUrl: 'node_modules/osb-pocket-poke/lib/OsbPocketPoke.html',
+    styleUrls: ['node_modules/osb-pocket-poke/lib/OsbPocketPoke.css']
 })
 export class OsbPocketPoke {
     isLoading = true;
@@ -70,6 +70,11 @@ export class OsbPocketPoke {
         }
         console.log(this);
         this.getPokeList();
+    }
+    // Capture Pokemon
+    capturePokemon(pokemon) {
+        console.log('Gotta catch em allllllllll......');
+        console.log(pokemon);
     }
     // Get Berry
     getBerry(berry) {

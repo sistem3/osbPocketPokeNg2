@@ -42,7 +42,14 @@
                     </div>
                     <div class="spriteBg"></div>
                 </div>
-                <h2>{{ poke.name }} <span class="pull-right"><i class="poke-icon poke-icon-pokeball-open"></i></span></h2>
+                <h2>{{ poke.name }}
+                    <span class="pull-right pokeball-holder" title="Capture Pokémon" (click)="capturePokemon(poke)">
+                        <i class="poke-icon poke-icon-pokeball-open"></i>
+                        <span class="top-half"></span>
+                        <span class="bottom-half"></span>
+                        <span class="center"></span>
+                    </span>
+                </h2>
                 <p><strong>Height:</strong> {{ poke.height }} | <strong>Weight:</strong> {{ poke.weight }} | <strong>Base XP:</strong> {{ poke.base_experience }}</p>
                 <h4 (click)="poke.statsVisible = !poke.statsVisible" class="details">Attributes <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !poke.statsVisible, 'fa-chevron-up' : poke.statsVisible}"></i></h4>
                 <ul class="list-unstyled details-list" [hidden]="!poke.statsVisible">
@@ -76,8 +83,8 @@
             <li *ngFor="let location of locationData" class="pokeListItem">
                 <h3>{{ location.name }}</h3>
                 <p>Region: {{ location.region.name }}</p>
-                <h4 (click)="location.areasHidden = !location.areasHidden">Areas: <span class="pull-right"><i class="fa" [ngClass]="{'fa-angle-down' : location.areasHidden, 'fa-angle-up' : !location.areasHidden}"></i></span></h4>
-                <ul *ngIf="location.areasHidden">
+                <h4 (click)="location.areasHidden = !location.areasHidden">Areas: <span class="pull-right"><i class="fa" [ngClass]="{'fa-angle-down' : !location.areasHidden, 'fa-angle-up' : location.areasHidden}"></i></span></h4>
+                <ul *ngIf="location.areasHidden" class="locations-list">
                     <li *ngFor="let area of location.areas">{{ area.name }}</li>
                 </ul>
             </li>
