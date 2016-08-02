@@ -12,6 +12,7 @@ export class OsbPocketPoke {
     isLoading = true;
     navHidden = true;
     pokemonApiBase = 'http://pokeapi.co';
+    caughtPokemon = [];
     pokemonList = [];
     pokemonViewList = [];
     pokemon = [];
@@ -29,6 +30,7 @@ export class OsbPocketPoke {
     listCount = 0;
     pageLength = 20;
     pageCount = 0;
+    locationPageCount = 0;
     callbackCount = 1;
 
     constructor(public http: Http) {
@@ -40,6 +42,11 @@ export class OsbPocketPoke {
         var pokeCache = localStorage.getItem('osbPocketPoke.pokemon');
         if (pokeCache) {
             this.pokemon = JSON.parse(pokeCache);
+        }
+        // Check Caught Pokemon
+        var caughtPokeList = localStorage.getItem('osbPocketPoke.caughtPokemon');
+        if (caughtPokeList) {
+            this.caughtPokemon = JSON.parse(caughtPokeList);
         }
         // Check Cache - Evolutions
         var evolutionChainsCache = localStorage.getItem('osbPocketPoke.evolutionChains');
@@ -66,7 +73,7 @@ export class OsbPocketPoke {
         }
         var locationDataCache = localStorage.getItem('osbPocketPoke.locationData');
         if (locationDataCache) {
-            this.locations = JSON.parse(locationDataCache);
+            this.locationData = JSON.parse(locationDataCache);
         }
         console.log(this);
         this.getPokeList();
@@ -75,6 +82,8 @@ export class OsbPocketPoke {
     capturePokemon(pokemon) {
         console.log('Gotta catch em allllllllll......');
         console.log(pokemon);
+        this.caughtPokemon.push(pokemon);
+        localStorage.setItem('osbPocketPoke.caughtPokemon', JSON.stringify(this.caughtPokemon));
     }
     // Get Berry
     getBerry(berry) {
@@ -131,6 +140,10 @@ export class OsbPocketPoke {
     }
     // Get Location
     getLocation(location) {
+        if (this.locationData.length > 1) {
+            this.sectionDisplay = 'locations';
+            return false;
+        }
         this.http.get(location.url)
             .subscribe(response => this.setLocation(response));
     }
@@ -141,8 +154,21 @@ export class OsbPocketPoke {
         localStorage.setItem('osbPocketPoke.locationData', JSON.stringify(this.locationData));
     }
     // Get Location(s)
-    getLocations() {
-        this.http.get(this.pokemonApiBase + '/api/v2/location/')
+    getLocations(newList) {
+        var holder = this;
+        var queryParams = '';
+        if (holder.locations.length > 1 && !newList) {
+            holder.locations.forEach(function(element) {
+                holder.locations.push(element);
+                holder.getLocation(element);
+            });
+            return false;
+        }
+        if (newList) {
+            holder.locationPageCount++;
+            queryParams = '?limit=' + holder.pageCount + '&offset=' + holder.locationPageCount;
+        }
+        this.http.get(this.pokemonApiBase + '/api/v2/location/' + queryParams)
             .subscribe(response => this.setLocations(response));
     }
     // Set Location(s)
