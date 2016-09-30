@@ -1,0 +1,8 @@
+{
+  "name": "OSB Pocket Poke",
+  "short_name": "osbPocketPoke",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "Angular 2 Pokemon Trivia Application"
+}
