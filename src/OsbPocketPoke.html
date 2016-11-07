@@ -4,7 +4,7 @@
         <nav>
             <ul class="list-unstyled list-inline">
                 <li><button class="btn btn-primary" (click)="navHidden = !navHidden"><i class="fa fa-bars"></i></button></li>
-                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'pokemon'}"><button class="btn btn-primary" (click)="sectionDisplay = 'pokemon'"><i class="poke-icon poke-icon-pokeball-open"></i> Pokémon</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'pokemon'}"><button class="btn btn-primary" (click)="getPokeList()"><i class="poke-icon poke-icon-pokeball-open"></i> Pokémon</button></li>
                 <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'locations'}"><button class="btn btn-primary" (click)="getLocations()"><i class="fa fa-map-marker"></i> Locations</button></li>
                 <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'evolution'}"><button class="btn btn-primary" (click)="getEvolutionChain()"><i class="poke-icon poke-icon-strain"></i> Evolution</button></li>
                 <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'berries'}"><button class="btn btn-primary" (click)="getBerries()"><i class="poke-icon poke-icon-berry"></i> Berries</button></li>
@@ -87,6 +87,10 @@
                 <ul *ngIf="location.areasHidden" class="locations-list">
                     <li *ngFor="let area of location.areas">{{ area.name }}</li>
                 </ul>
+            </li>
+            <li class="pokeListItem">
+                <div id="location-loading-trigger" class="img-holder text-center"></div>
+                <h2>Loading...</h2>
             </li>
         </ul>
     </section>
