@@ -4,10 +4,10 @@
         <nav>
             <ul class="list-unstyled list-inline">
                 <li><button class="btn btn-primary" (click)="navHidden = !navHidden"><i class="fa fa-bars"></i></button></li>
-                <li *ngIf="!navHidden"><button class="btn btn-primary" (click)="sectionDisplay = 'pokemon'"><i class="poke-icon poke-icon-pokeball-open"></i> Pokémon</button></li>
-                <li *ngIf="!navHidden"><button class="btn btn-primary" (click)="getLocations()"><i class="fa fa-map-marker"></i> Locations</button></li>
-                <li *ngIf="!navHidden"><button class="btn btn-primary" (click)="getEvolutionChain()"><i class="poke-icon poke-icon-strain"></i> Evolution</button></li>
-                <li *ngIf="!navHidden"><button class="btn btn-primary" (click)="getBerries()"><i class="poke-icon poke-icon-berry"></i> Berries</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'pokemon'}"><button class="btn btn-primary" (click)="getPokeList()"><i class="poke-icon poke-icon-pokeball-open"></i> Pokémon</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'locations'}"><button class="btn btn-primary" (click)="getLocations()"><i class="fa fa-map-marker"></i> Locations</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'evolution'}"><button class="btn btn-primary" (click)="getEvolutionChain()"><i class="poke-icon poke-icon-strain"></i> Evolution</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'berries'}"><button class="btn btn-primary" (click)="getBerries()"><i class="poke-icon poke-icon-berry"></i> Berries</button></li>
                 <li *ngIf="!navHidden"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></li>
                 <li (click)="navHidden = !navHidden"><i class="fa" [ngClass]="{'fa-angle-right' : navHidden, 'fa-angle-left' : !navHidden}"></i></li>
             </ul>
@@ -42,7 +42,14 @@
                     </div>
                     <div class="spriteBg"></div>
                 </div>
-                <h2>{{ poke.name }} <span class="pull-right"><i class="poke-icon poke-icon-pokeball-open"></i></span></h2>
+                <h2>{{ poke.name }}
+                    <span class="pull-right pokeball-holder" title="Capture Pokémon" (click)="capturePokemon(poke)">
+                        <i class="poke-icon poke-icon-pokeball-open"></i>
+                        <span class="top-half"></span>
+                        <span class="bottom-half"></span>
+                        <span class="center"></span>
+                    </span>
+                </h2>
                 <p><strong>Height:</strong> {{ poke.height }} | <strong>Weight:</strong> {{ poke.weight }} | <strong>Base XP:</strong> {{ poke.base_experience }}</p>
                 <h4 (click)="poke.statsVisible = !poke.statsVisible" class="details">Attributes <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !poke.statsVisible, 'fa-chevron-up' : poke.statsVisible}"></i></h4>
                 <ul class="list-unstyled details-list" [hidden]="!poke.statsVisible">
@@ -71,15 +78,19 @@
             </li>
         </ul>
     </section>
-    <section *ngIf="sectionDisplay === 'locations'" class="pokeEvol">
+    <section *ngIf="sectionDisplay === 'locations'" class="pokeEvol pokeLocations">
         <ul class="pokeList list-unstyled">
             <li *ngFor="let location of locationData" class="pokeListItem">
-                <h3>{{ location.name }}</h3>
+                <h3><i class="fa fa-map-marker"></i> {{ location.name }}</h3>
                 <p>Region: {{ location.region.name }}</p>
-                <h4 (click)="areasHidden = !areasHidden">Areas: <span class="pull-right"><i class="fa" [ngClass]="{'fa-angle-down' : areasHidden, 'fa-angle-up' : !areasHidden}"></i></span></h4>
-                <ul>
+                <h4 (click)="location.areasHidden = !location.areasHidden">Areas: <span class="pull-right"><i class="fa" [ngClass]="{'fa-angle-down' : !location.areasHidden, 'fa-angle-up' : location.areasHidden}"></i></span></h4>
+                <ul *ngIf="location.areasHidden" class="locations-list">
                     <li *ngFor="let area of location.areas">{{ area.name }}</li>
                 </ul>
+            </li>
+            <li class="pokeListItem">
+                <div id="location-loading-trigger" class="img-holder text-center"></div>
+                <h2>Loading...</h2>
             </li>
         </ul>
     </section>

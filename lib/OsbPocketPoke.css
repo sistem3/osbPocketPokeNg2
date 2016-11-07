@@ -20,10 +20,13 @@
   .osb-pocket-poke-holder .btn-primary:focus {
     outline: none; }
 
+.osb-pocket-poke-holder .active .btn-primary {
+  background-color: #0065AD; }
+
 @font-face {
   font-family: 'poke-icons';
-  src: url("vendor/osb-pocket-poke/lib/fonts/poke-icons.eot?1c0iqf");
-  src: url("vendor/osb-pocket-poke/lib/fonts/poke-icons.eot?1c0iqf#iefix") format("embedded-opentype"), url("vendor/osb-pocket-poke/lib/fonts/poke-icons.ttf?1c0iqf") format("truetype"), url("vendor/osb-pocket-poke/lib/fonts/poke-icons.woff?1c0iqf") format("woff"), url("vendor/osb-pocket-poke/lib/fonts/poke-icons.svg?1c0iqf#poke-icons") format("svg");
+  src: url("node_modules/osb-pocket-poke/lib/fonts/poke-icons.eot?1c0iqf");
+  src: url("node_modules/osb-pocket-poke/lib/fonts/poke-icons.eot?1c0iqf#iefix") format("embedded-opentype"), url("node_modules/osb-pocket-poke/lib/fonts/poke-icons.ttf?1c0iqf") format("truetype"), url("node_modules/osb-pocket-poke/lib/fonts/poke-icons.woff?1c0iqf") format("woff"), url("node_modules/osb-pocket-poke/lib/fonts/poke-icons.svg?1c0iqf#poke-icons") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -136,6 +139,9 @@
 
 .type-normal {
   background-color: #FFF; }
+  .type-normal i {
+    position: relative;
+    top: 2px; }
 
 .type-fire {
   background-color: #FFB300; }
@@ -170,16 +176,22 @@
 .type-poison {
   background-color: #6600CC; }
   .type-poison i {
+    position: relative;
+    top: 1px;
     color: #a366e0; }
 
 .type-ground {
   background-color: #804B13; }
   .type-ground i {
+    position: relative;
+    top: 1px;
     color: #a6815a; }
 
 .type-flying {
   background-color: #00DCF5; }
   .type-flying i {
+    position: relative;
+    top: 1px;
     color: #009aac; }
 
 .type-psychic {
@@ -236,6 +248,49 @@
   flex-wrap: wrap; }
   [override] osb-pocket-poke .pokeList h2 {
     text-transform: capitalize; }
+  [override] osb-pocket-poke .pokeList .pokeball-holder {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    cursor: pointer; }
+    [override] osb-pocket-poke .pokeList .pokeball-holder .top-half {
+      width: 30px;
+      height: 15px;
+      background: #CC0000;
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      border-radius: 15px 15px 0 0;
+      -moz-border-radius: 15px 15px 0 0;
+      -webkit-border-radius: 15px 15px 0 0; }
+    [override] osb-pocket-poke .pokeList .pokeball-holder .bottom-half {
+      width: 30px;
+      height: 15px;
+      background: #FFF;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      z-index: 1;
+      border-radius: 0 0 15px 15px;
+      -moz-border-radius: 0 0 15px 15px;
+      -webkit-border-radius: 0 0 15px 15px; }
+    [override] osb-pocket-poke .pokeList .pokeball-holder .center {
+      width: 8px;
+      height: 8px;
+      background: #FFF;
+      border-radius: 50%;
+      -moz-border-radius: 50%;
+      -webkit-border-radius: 50%;
+      position: absolute;
+      top: 11px;
+      left: 11px;
+      z-index: 3; }
+    [override] osb-pocket-poke .pokeList .pokeball-holder i {
+      position: relative;
+      z-index: 2; }
   [override] osb-pocket-poke .pokeList .img-holder {
     min-width: 120px;
     min-height: 150px;
@@ -258,6 +313,7 @@
     [override] osb-pocket-poke .pokeList .img-holder .spriteBackBtn, [override] osb-pocket-poke .pokeList .img-holder .spriteFrontBtn {
       font-size: 21px;
       color: #FFF;
+      cursor: pointer;
       position: absolute;
       top: 50%;
       z-index: 2; }
@@ -304,7 +360,7 @@
     flex: 1 1 25%;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
-    background-color: #8f8fa7; }
+    background-color: #f8f8f8; }
     @media (max-width: 990px) {
       [override] osb-pocket-poke .pokeList .pokeListItem {
         -webkit-flex: 1 1 33.333%;
@@ -319,13 +375,20 @@
       padding: 10px;
       margin: 0;
       background-color: #378787;
-      border-top: 1px solid #000; }
+      color: #FFF;
+      border-top: 1px solid #000;
+      cursor: pointer; }
     [override] osb-pocket-poke .pokeList .pokeListItem .details-list li {
-      border-right: 0; }
+      border-right: 0;
+      background: #47a79f;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.5); }
       [override] osb-pocket-poke .pokeList .pokeListItem .details-list li:last-child {
         border-bottom: 0; }
       [override] osb-pocket-poke .pokeList .pokeListItem .details-list li:first-child {
         border-top: 1px solid #000; }
+      [override] osb-pocket-poke .pokeList .pokeListItem .details-list li p {
+        margin: 0;
+        padding: 10px; }
     [override] osb-pocket-poke .pokeList .pokeListItem .moves li {
       width: 50%;
       display: inline-block; }
@@ -334,3 +397,10 @@
   border-top: 1px solid #000; }
   [override] osb-pocket-poke .pokeEvol li h3, [override] osb-pocket-poke .pokeEvol li h4, [override] osb-pocket-poke .pokeEvol li h5 {
     margin: 10px 0; }
+
+[override] osb-pocket-poke .pokeLocations li h3, [override] osb-pocket-poke .pokeLocations li h4 {
+  margin: 10px; }
+
+[override] osb-pocket-poke .pokeLocations .locations-list {
+  list-style-type: disc;
+  margin-bottom: 20px; }
