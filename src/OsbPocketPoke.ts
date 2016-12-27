@@ -46,43 +46,43 @@ export class OsbPocketPoke {
 
     constructor(public http: Http) {
         // Check Cache - Main
-        var pokeListCache = localStorage.getItem('osbPocketPoke');
+        let pokeListCache = localStorage.getItem('osbPocketPoke');
         if (pokeListCache) {
             this.pokemonList = JSON.parse(pokeListCache);
         }
-        var pokeCache = localStorage.getItem('osbPocketPoke.pokemon');
+        let pokeCache = localStorage.getItem('osbPocketPoke.pokemon');
         if (pokeCache) {
             this.pokemon = JSON.parse(pokeCache);
         }
         // Check Caught Pokemon
-        var caughtPokeList = localStorage.getItem('osbPocketPoke.caughtPokemon');
+        let caughtPokeList = localStorage.getItem('osbPocketPoke.caughtPokemon');
         if (caughtPokeList) {
             this.caughtPokemon = JSON.parse(caughtPokeList);
         }
         // Check Cache - Evolutions
-        var evolutionChainsCache = localStorage.getItem('osbPocketPoke.evolutionChains');
+        let evolutionChainsCache = localStorage.getItem('osbPocketPoke.evolutionChains');
         if (evolutionChainsCache) {
             this.evolutionChains = JSON.parse(evolutionChainsCache);
         }
-        var evolutionsCache = localStorage.getItem('osbPocketPoke.evolutions');
+        let evolutionsCache = localStorage.getItem('osbPocketPoke.evolutions');
         if (evolutionsCache) {
             this.evolutions = JSON.parse(evolutionsCache);
         }
         // Check Cache - Berries
-        var berriesCache = localStorage.getItem('osbPocketPoke.berries');
+        let berriesCache = localStorage.getItem('osbPocketPoke.berries');
         if (berriesCache) {
             this.berries = JSON.parse(berriesCache);
         }
-        var berriesDataCache = localStorage.getItem('osbPocketPoke.berriesData');
+        let berriesDataCache = localStorage.getItem('osbPocketPoke.berriesData');
         if (berriesDataCache) {
             this.berriesData = JSON.parse(berriesDataCache);
         }
         // Check Cache - Locations
-        var locationsCache = localStorage.getItem('osbPocketPoke.locations');
+        let locationsCache = localStorage.getItem('osbPocketPoke.locations');
         if (locationsCache) {
             this.locations = JSON.parse(locationsCache);
         }
-        var locationDataCache = localStorage.getItem('osbPocketPoke.locationData');
+        let locationDataCache = localStorage.getItem('osbPocketPoke.locationData');
         if (locationDataCache) {
             this.locationData = JSON.parse(locationDataCache);
         }
@@ -91,8 +91,8 @@ export class OsbPocketPoke {
     }
     // Init ScrollMagic
     startScrollMagic() {
-        var holder = this;
-        var controller = new ScrollMagic.Controller();
+        let holder = this;
+        let controller = new ScrollMagic.Controller();
         holder.pokemonScene = new ScrollMagic.Scene({triggerElement: '#loading-trigger', triggerHook: 'onEnter'})
             .addTo(controller)
             .on('enter', function (e) {
@@ -107,8 +107,8 @@ export class OsbPocketPoke {
     // Init Location ScrollMagic (to be consolidated later)
     startLocationScrollMagic() {
         console.log('What up');
-        var holder = this;
-        var location_controller = new ScrollMagic.Controller();
+        let holder = this;
+        let location_controller = new ScrollMagic.Controller();
         holder.locationsScene = new ScrollMagic.Scene({triggerElement: '#location-loading-trigger', triggerHook: 'onEnter'})
             .addTo(location_controller)
             .on('enter', function (e) {
@@ -152,7 +152,7 @@ export class OsbPocketPoke {
     }
     // Set Berry
     setBerry(berry) {
-        var berryData = berry.json();
+        let berryData = berry.json();
         this.berriesData.push(berryData);
         this.sectionDisplay = 'berries';
         localStorage.setItem('osbPocketPoke.berriesData', JSON.stringify(this.berriesData));
@@ -164,8 +164,8 @@ export class OsbPocketPoke {
     }
     // Set Berrie(s)
     setBerries(berries) {
-        var holder = this;
-        var berriesData = berries.json();
+        let holder = this;
+        let berriesData = berries.json();
         this.berries = berriesData;
         this.berryCount = berriesData.count;
         berriesData.results.forEach(function(element) {
@@ -193,8 +193,8 @@ export class OsbPocketPoke {
     }
     // Set Evolution Chain
     setEvolutionChain(evolutions) {
-        var holder = this;
-        var evolutionsData = evolutions.json();
+        let holder = this;
+        let evolutionsData = evolutions.json();
         this.evolutionChains = evolutionsData;
         evolutionsData.results.forEach(function(element) {
             holder.getEvolution(element);
@@ -223,8 +223,8 @@ export class OsbPocketPoke {
     }
     // Get Location(s)
     getLocations(newList) {
-        var holder = this;
-        var queryParams = '';
+        let holder = this;
+        let queryParams = '';
         if (holder.locations.length > 1 && !newList) {
             holder.locations.forEach(function(element) {
                 holder.locations.push(element);
@@ -241,8 +241,8 @@ export class OsbPocketPoke {
     }
     // Set Location(s)
     setLocations(locations) {
-        var holder = this;
-        var locationsResults = locations.json();
+        let holder = this;
+        let locationsResults = locations.json();
         holder.destroyScrollMagic();
         holder.locationsCount = locationsResults.count;
         holder.locationCount = 0;
@@ -254,10 +254,10 @@ export class OsbPocketPoke {
     }
     // Get More Pokemon (Pagination)
     getMorePokemon() {
-        var holder = this;
+        let holder = this;
         holder.pokeCallbackCount = 1;
-        var pokePageCount = holder.pageLength;
-        var page = holder.pageLength;
+        let pokePageCount = holder.pageLength;
+        let page = holder.pageLength;
         holder.pokePageCount++;
         if (holder.pokePageCount > 1) {
             page = page * holder.pokePageCount;
@@ -267,8 +267,8 @@ export class OsbPocketPoke {
     }
     // Set More Pokemon (Pagination)
     setMorePokemon(pokemonList) {
-        var holder = this;
-        var pokemonUpdate = pokemonList.json();
+        let holder = this;
+        let pokemonUpdate = pokemonList.json();
         pokemonUpdate.results.forEach(function(element) {
             holder.http.get(element.url)
                 .subscribe(response => holder.updatePokemon(response));
@@ -276,7 +276,7 @@ export class OsbPocketPoke {
     }
     // Update Pokemon List
     updatePokemon(pokemon) {
-        var pokeData = pokemon.json();
+        let pokeData = pokemon.json();
         this.pokemon.push(pokeData);
         this.pokeCallbackCount++;
         if (this.pokeCallbackCount === this.pageLength) {
@@ -285,7 +285,7 @@ export class OsbPocketPoke {
     }
     // Get Pokemon
     getPokemon(pokemon, newList) {
-        var holder = this;
+        let holder = this;
         if (!newList) {
             if (holder.pokemon.length > 1) {
                 return false;
@@ -296,7 +296,7 @@ export class OsbPocketPoke {
     }
     // Set Pokemon
     setPokemon(pokemon, newList) {
-        var holder = this;
+        let holder = this;
         holder.pokemon.push(pokemon.json());
         if (!newList) {
             // Cache size too small for full listing storage
@@ -320,7 +320,7 @@ export class OsbPocketPoke {
     }
     // Get Initial Poke List
     setPokeList(data) {
-        var holder = this;
+        let holder = this;
         if (holder.pokemonList.length > 1) {
             holder.destroyScrollMagic();
             setTimeout(function() {
@@ -328,10 +328,10 @@ export class OsbPocketPoke {
             }, 1500);
             return false;
         }
-        var feed = data.json();
+        let feed = data.json();
         holder.pokemonList = feed;
         localStorage.setItem('osbPocketPoke', JSON.stringify(feed.results));
-        var pokeCount = 0;
+        let pokeCount = 0;
         holder.pokeListCount = feed.count;
         feed.results.forEach(function(element, index, array) {
             pokeCount++;
