@@ -11,7 +11,7 @@ declare let ScrollMagic;
 export class OsbPocketPoke {
     isLoading = true;
     navHidden = true;
-    pokemonApiBase = 'http://pokeapi.co';
+    pokemonApiBase = 'https://pokeapi.co';
     caughtPokemon = [];
     pokemonList = [];
     pokemonViewList = [];
