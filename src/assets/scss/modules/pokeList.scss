@@ -161,20 +161,20 @@
     .pokeListItem {
       box-sizing: border-box;
       text-transform: capitalize;
-      -webkit-flex: 1 1 25%;
-      flex: 1 1 25%;
+      -webkit-flex: 1 1 33.333%;
+      flex: 1 1 33.333%;
       border-right: 1px solid $color-black;
       border-bottom: 1px solid $color-black;
       background-color: $alabaster;
 
       @media (max-width: $breakpoint-medium) {
-        -webkit-flex: 1 1 33.333%;
-        flex: 1 1 33.333%;
+        -webkit-flex: 1 1 50%;
+        flex: 1 1 50%;
       }
 
       @media (max-width: $breakpoint-x-small) {
-        -webkit-flex: 1 1 50%;
-        flex: 1 1 50%;
+        -webkit-flex: 1 1 100%;
+        flex: 1 1 100%;
       }
 
       h2, p {
