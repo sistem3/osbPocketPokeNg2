@@ -112,6 +112,9 @@
 .poke-icon-fighting:before {
   content: '\e906'; }
 
+[override] osb-pocket-poke header h1 {
+  font-size: 26px; }
+
 [override] osb-pocket-poke header h1, [override] osb-pocket-poke header nav {
   display: inline-block; }
 
@@ -356,19 +359,19 @@
   [override] osb-pocket-poke .pokeList .pokeListItem {
     box-sizing: border-box;
     text-transform: capitalize;
-    -webkit-flex: 1 1 25%;
-    flex: 1 1 25%;
+    -webkit-flex: 1 1 33.333%;
+    flex: 1 1 33.333%;
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
     background-color: #f8f8f8; }
     @media (max-width: 990px) {
       [override] osb-pocket-poke .pokeList .pokeListItem {
-        -webkit-flex: 1 1 33.333%;
-        flex: 1 1 33.333%; } }
-    @media (max-width: 640px) {
-      [override] osb-pocket-poke .pokeList .pokeListItem {
         -webkit-flex: 1 1 50%;
         flex: 1 1 50%; } }
+    @media (max-width: 640px) {
+      [override] osb-pocket-poke .pokeList .pokeListItem {
+        -webkit-flex: 1 1 100%;
+        flex: 1 1 100%; } }
     [override] osb-pocket-poke .pokeList .pokeListItem h2, [override] osb-pocket-poke .pokeList .pokeListItem p {
       margin: 10px; }
     [override] osb-pocket-poke .pokeList .pokeListItem .details {
