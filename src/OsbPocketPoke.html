@@ -1,15 +1,15 @@
 <main class="osb-pocket-poke-holder">
     <header class="container">
-        <h1><i class="poke-icon poke-icon-pokeball"></i> PocketPoké</h1>
         <nav>
             <ul class="list-unstyled list-inline">
                 <li><button class="btn btn-primary" (click)="navHidden = !navHidden"><i class="fa fa-bars"></i></button></li>
-                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'pokemon'}"><button class="btn btn-primary" (click)="getPokeList()"><i class="poke-icon poke-icon-pokeball-open"></i> Pokémon</button></li>
-                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'locations'}"><button class="btn btn-primary" (click)="getLocations()"><i class="fa fa-map-marker"></i> Locations</button></li>
-                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'evolution'}"><button class="btn btn-primary" (click)="getEvolutions()"><i class="poke-icon poke-icon-strain"></i> Evolutions</button></li>
-                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'berries'}"><button class="btn btn-primary" (click)="getBerries()"><i class="poke-icon poke-icon-berry"></i> Berries</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'pokemon'}"><button class="btn btn-primary" (click)="getSectionList('pokemon', 1)"><i class="poke-icon poke-icon-pokeball-open"></i> Pokémon</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'locations'}"><button class="btn btn-primary" (click)="getSectionList('locations', 1)"><i class="fa fa-map-marker"></i> Locations</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'evolution'}"><button class="btn btn-primary" (click)="getSectionList('evolutions', 1)"><i class="poke-icon poke-icon-strain"></i> Evolutions</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'berries'}"><button class="btn btn-primary" (click)="getSectionList('berries', 1)"><i class="poke-icon poke-icon-berry"></i> Berries</button></li>
                 <li *ngIf="!navHidden"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></li>
                 <li (click)="navHidden = !navHidden"><i class="fa" [ngClass]="{'fa-angle-right' : navHidden, 'fa-angle-left' : !navHidden}"></i></li>
+                <li><h1><i class="poke-icon poke-icon-pokeball"></i> PocketPoké</h1></li>
             </ul>
         </nav>
     </header>
@@ -81,9 +81,9 @@
             </li>
         </ul>
     </section>
-    <section *ngIf="sectionDisplay === 'locations'" class="pokeEvol pokeLocations">
+    <section *ngIf="locations.length > 1 && sectionDisplay === 'locations'" class="pokeEvol pokeLocations">
         <ul class="pokeList list-unstyled">
-            <li *ngFor="let location of locationData" class="pokeListItem">
+            <li *ngFor="let location of locations" class="pokeListItem">
                 <h3><i class="fa fa-map-marker"></i> {{ location.name }}</h3>
                 <p>Region: {{ location.region.name }}</p>
                 <h4 (click)="location.areasHidden = !location.areasHidden">Areas: <span class="pull-right"><i class="fa" [ngClass]="{'fa-angle-down' : !location.areasHidden, 'fa-angle-up' : location.areasHidden}"></i></span></h4>
@@ -97,7 +97,7 @@
             </li>
         </ul>
     </section>
-    <section *ngIf="sectionDisplay === 'evolution'" class="pokeEvol">
+    <section *ngIf="evolutions.length > 1 && sectionDisplay === 'evolutions'" class="pokeEvol">
         <ul class="pokeList list-unstyled">
             <li *ngFor="let evolution of evolutions" class="text-center pokeListItem">
                 <article class="col-md-8 chain">
@@ -122,17 +122,20 @@
                 </div>
             </li>
             <li class="pokeListItem">
+                <div id="evolutions-loading-trigger" class="img-holder text-center">
+                    <div class="spriteBg"></div>
+                </div>
                 <h2>Loading...</h2>
             </li>
         </ul>
     </section>
-    <section *ngIf="berriesData.length > 1 && sectionDisplay === 'berries'" class="pokeDex">
+    <section *ngIf="berries.length > 1 && sectionDisplay === 'berries'" class="pokeDex">
         <ul class="pokeList list-unstyled">
-            <li *ngFor="let berry of berriesData" class="pokeListItem">
+            <li *ngFor="let berry of berries" class="pokeListItem">
                 <h3 class="text-center">{{ berry.name }}</h3>
                 <div class="col-md-8">
-                    <h4>Stats</h4>
-                    <ul class="list-unstyled">
+                    <h4 (click)="berry.statsHidden = !berry.statsHidden">Stats</h4>
+                    <ul class="list-unstyled" *ngIf="berry.statsHidden">
                         <li>Size: {{ berry.size }}</li>
                         <li>Max Harvest: {{ berry.max_harvest }}</li>
                         <li>Firmness: {{ berry.firmness.name }}</li>
@@ -142,8 +145,8 @@
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h4>Flavours</h4>
-                    <ul class="list-unstyled">
+                    <h4 (click)="berry.flavorHidden = !berry.flavorHidden">Flavours</h4>
+                    <ul class="list-unstyled" *ngIf="berry.flavorHidden">
                         <li *ngFor="let flavor of berry.flavors">
                             {{ flavor.flavor.name }} <span>{{ flavor.potency }}</span>
                         </li>
@@ -155,6 +158,12 @@
                         <i class="poke-icon poke-icon-{{berry.natural_gift_type.name}}"></i> Power: {{berry.natural_gift_power}}
                     </div>
                 </div>
+            </li>
+            <li class="pokeListItem">
+                <div id="berries-loading-trigger" class="img-holder text-center">
+                    <div class="spriteBg"></div>
+                </div>
+                <h2>Loading...</h2>
             </li>
         </ul>
     </section>

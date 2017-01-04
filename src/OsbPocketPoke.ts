@@ -13,34 +13,23 @@ export class OsbPocketPoke {
     navHidden = true;
     pokemonApiBase = 'https://pokeapi.co';
     caughtPokemon = [];
+
     pokemonList = [];
-    pokemonViewList = [];
     pokemon = [];
-    evolutionChains = [];
-    evolutionViewList = [];
-    evolutions = [];
-    evolutionsCount = 0;
-    contests = [];
-    berries = [];
-    berriesData = [];
-    berryCount = 0;
-    locations = [];
-    locationsCount = 0;
     locationData = [];
-    locationCount = 0;
+    locations = [];
+    evolutionChains = [];
+    evolutions = [];
+    berriesData = [];
+    berries = [];
+
     sectionDisplay = 'pokemon';
-    pokeListCount = 0;
     pageLength = 20;
 
-    pokePageCount = 0;
-    locationsPageCount = 0;
-    evolutionsPageCount = 0;
-    berriesPageCount = 0;
-
-    pokeCallbackCount = 1;
-    locationCallbackCount = 1;
-    evolutionsCallbackCount = 1;
-    berriesCallbackCount = 1;
+    pokePageCount = 1;
+    locationsPageCount = 1;
+    evolutionsPageCount = 1;
+    berriesPageCount = 1;
 
     pokemonScene;
 
@@ -87,7 +76,8 @@ export class OsbPocketPoke {
             this.locationData = JSON.parse(locationDataCache);
         }
         console.log(this);
-        this.getPokeList();
+        //this.getPokeList();
+        this.getSectionList('pokemon', 1);
     }
     // Init ScrollMagic
     startScrollMagic(section) {
@@ -95,23 +85,52 @@ export class OsbPocketPoke {
         let holder = this;
         let controller = new ScrollMagic.Controller();
         let trigger = '#loading-trigger';
-        if (section === 'locations') {
-            trigger = '#locations-loading-trigger';
+        switch(section) {
+            case 'pokemon':
+                trigger = '#loading-trigger';
+                break;
+            case 'locations':
+                trigger = '#locations-loading-trigger';
+                break;
+            case 'evolutions':
+                trigger = '#evolutions-loading-trigger';
+                break;
+            case 'berries':
+                trigger = '#berries-loading-trigger';
+                break;
         }
         holder.pokemonScene = new ScrollMagic.Scene({triggerElement: trigger, triggerHook: 'onEnter'})
             .addTo(controller)
             .on('enter', function (e) {
-                console.log(section);
                 if (section === 'pokemon' &&
-                    document.querySelector('#loading-trigger').className.indexOf('active') == -1) {
-                    document.querySelector('#loading-trigger').classList.add('active');
+                    document.querySelector(trigger).className.indexOf('active') == -1) {
+                    document.querySelector(trigger).classList.add('active');
                     console.log('Load more pokemon');
-                    holder.getMorePokemon();
+                    holder.pokePageCount++;
+                    console.log(holder.pokePageCount);
+                    holder.getSectionList('pokemon', holder.pokePageCount);
                 } else if (section === 'locations' &&
-                    document.querySelector('#locations-loading-trigger').className.indexOf('active') == -1) {
-                    document.querySelector('#locations-loading-trigger').classList.add('active');
+                    document.querySelector(trigger).className.indexOf('active') == -1) {
+                    document.querySelector(trigger).classList.add('active');
                     console.log('Load more locations');
-                    //older.getMorePokemon();
+                    holder.locationsPageCount++;
+                    console.log(holder.locationsPageCount);
+                    holder.getSectionList('locations', holder.locationsPageCount);
+                } else if (section === 'evolutions' &&
+                    document.querySelector(trigger).className.indexOf('active') == -1) {
+                    document.querySelector(trigger).classList.add('active');
+                    console.log('Load more evolutions');
+                    holder.evolutionsPageCount++;
+                    console.log(holder.evolutionsPageCount);
+                    holder.getSectionList('evolutions', holder.evolutionsPageCount);
+
+                } else if (section === 'berries' &&
+                    document.querySelector(trigger).className.indexOf('active') == -1) {
+                    document.querySelector(trigger).classList.add('active');
+                    console.log('Load more berries');
+                    holder.berriesPageCount++;
+                    console.log(holder.berriesPageCount);
+                    holder.getSectionList('berries', holder.berriesPageCount);
                 }
             });
         holder.pokemonScene.update();
@@ -131,236 +150,185 @@ export class OsbPocketPoke {
         this.caughtPokemon.push(pokemon);
         localStorage.setItem('osbPocketPoke.caughtPokemon', JSON.stringify(this.caughtPokemon));
     }
-    // Get Berry
-    getBerry(berry) {
-        this.http.get(berry.url)
-            .subscribe(response => this.setBerry(response));
+    // Get Section Data
+    getSectionData(section, item) {
+        this.sectionDisplay = section;
+        this.http.get(item.url)
+            .subscribe(response => this.setSectionData(section, response));
+
+        /*console.log('Pagination Callback trigger');
+         document.querySelector('#loading-trigger').classList.remove('active');*/
     }
-    // Set Berry
-    setBerry(berry) {
-        let berryData = berry.json();
-        this.berriesData.push(berryData);
-        this.sectionDisplay = 'berries';
-        localStorage.setItem('osbPocketPoke.berriesData', JSON.stringify(this.berriesData));
+    // Set Section Data
+    setSectionData(section, data) {
+        this.isLoading = false;
+        if (section == 'pokemon') {
+            this.pokemon.push(data.json());
+            if (this.pokemon.length < (this.pageLength + 1)) {
+                console.log('cache initial pokemon');
+                localStorage.setItem('osbPocketPoke.pokemon', JSON.stringify(this.pokemon));
+            }
+            if (this.pokemon.length > (this.pageLength - 1)) {
+                console.log('Start scroll pokemon');
+                this.startScrollMagic('pokemon');
+            }
+        }
+        if (section == 'locations') {
+            this.locations.push(data.json());
+            if (this.locations.length < (this.pageLength + 1)) {
+                console.log('cache initial locations');
+                localStorage.setItem('osbPocketPoke.locations', JSON.stringify(this.locations));
+            }
+            if (this.locations.length > (this.pageLength - 1)) {
+                console.log('Start scroll locations');
+                this.startScrollMagic('locations');
+            }
+        }
+        if (section == 'evolutions') {
+            this.evolutions.push(data.json());
+            if (this.evolutions.length < (this.pageLength + 1)) {
+                console.log('cache initial locations');
+                localStorage.setItem('osbPocketPoke.evolutions', JSON.stringify(this.evolutions));
+            }
+            if (this.evolutions.length > (this.pageLength - 1)) {
+                console.log('Start scroll evolutions');
+                this.startScrollMagic('evolutions');
+            }
+        }
+        if (section == 'berries') {
+            this.berries.push(data.json());
+            if (this.berries.length < (this.pageLength + 1)) {
+                console.log('cache initial locations');
+                localStorage.setItem('osbPocketPoke.berries', JSON.stringify(this.berries));
+            }
+            if (this.berries.length > (this.pageLength - 1)) {
+                console.log('Start scroll berries');
+                this.startScrollMagic('berries');
+            }
+        }
     }
-    // Get Berrie(s)
-    getBerries() {
+    // Get Section List
+    getSectionList(section, page) {
+        this.isLoading = true;
         this.destroyScrollMagic();
-        if (this.berriesData.length > 1) {
-            this.setBerries(JSON.stringify(this.berries));
+        let sectionDataUrl = '';
+        switch(section) {
+            case 'pokemon':
+                sectionDataUrl = '/api/v2/pokemon/';
+                break;
+            case 'locations':
+                sectionDataUrl = '/api/v2/location/';
+                break;
+            case 'evolutions':
+                sectionDataUrl = '/api/v2/evolution-chain/';
+                break;
+            case 'berries':
+                sectionDataUrl = '/api/v2/berry/';
+                break;
+        }
+        console.log(page);
+        if (page > 1) {
+            console.log('Get next page');
+            let pageOffset = (page - 1) * this.pageLength;
+            console.log(pageOffset);
+            sectionDataUrl = sectionDataUrl + '?limit=' + this.pageLength + '&offset=' + pageOffset;
+
+            this.http.get(this.pokemonApiBase + sectionDataUrl)
+                .subscribe(response => this.setSectionList(section, response));
+
             return false;
         }
-        this.http.get(this.pokemonApiBase + '/api/v2/berry/')
-            .subscribe(response => this.setBerries(response));
-    }
-    // Set Berrie(s)
-    setBerries(berries) {
-        let holder = this;
-        let berriesData = berries.json();
-        this.berries = berriesData;
-        this.berryCount = berriesData.count;
-        berriesData.results.forEach(function(element) {
-            holder.getBerry(element);
-        });
-    }
-    // Get Evolution
-    getEvolution(evolution) {
-        this.http.get(evolution.url)
-            .subscribe(response => this.setEvolution(response));
-    }
-    // Set Evolution
-    setEvolution(evolution) {
-        this.sectionDisplay = 'evolution';
-        this.evolutions.push(evolution.json());
-        localStorage.setItem('osbPocketPoke.evolutions', JSON.stringify(this.evolutions));
-    }
-    // Get Evolution Chain
-    getEvolutions() {
-        if (this.evolutionChains.length > 1) {
-            this.sectionDisplay = 'evolution';
+        if (this.pokemon.length > 1 &&
+            section == 'pokemon') {
+            //console.log('load poke from cache');
+            this.setSectionList('pokemon', this.pokemon);
             return false;
         }
-        this.http.get(this.pokemonApiBase + '/api/v2/evolution-chain/')
-            .subscribe(response => this.setEvolutions(response));
-    }
-    // Set Evolution Chain
-    setEvolutions(evolutions) {
-        let holder = this;
-        if (holder.pokemonList.length > 1) {
-            this.sectionDisplay = 'locations';
-            setTimeout(function() {
-                holder.startScrollMagic('locations');
-            }, 1000);
+        if (this.locations.length > 1 &&
+            section == 'locations') {
+            //console.log('load location from cache');
+            this.setSectionList('locations', this.locations);
             return false;
         }
-        let evolutionsData = evolutions.json();
-        holder.evolutionChains = evolutionsData;
-        localStorage.setItem('osbPocketPoke.evolutionChains', JSON.stringify(holder.evolutionChains));
-        let evolutionsCount = 0;
-        holder.evolutionsCount = evolutionsData.count;
-        evolutionsData.results.forEach(function(element, index, array) {
-            evolutionsCount++;
-            if (evolutionsCount === array.length) {
-                setTimeout(function() {
-                    holder.startScrollMagic('evolutions');
-                }, 3500);
-            } else {
-                holder.locations.push(element);
-                holder.getEvolution(element);
-            }
-        });
-    }
-    // Get Location
-    getLocation(location) {
-        console.log('Check locations');
-        if (this.locationData.length > 1) {
-            this.sectionDisplay = 'locations';
+        if (this.evolutions.length > 1 &&
+            section == 'evolutions') {
+            //console.log('load evolutions from cache');
+            this.setSectionList('evolutions', this.evolutions);
             return false;
         }
-        this.http.get(location.url)
-            .subscribe(response => this.setLocation(response));
-    }
-    // Set Location
-    setLocation(location) {
-        this.locationCount++;
-        if (this.locationCount === this.pageLength) {
-            this.destroyScrollMagic();
-            this.startScrollMagic('locations');
-        }
-        this.locationData.push(location.json());
-        this.sectionDisplay = 'locations';
-        localStorage.setItem('osbPocketPoke.locationData', JSON.stringify(this.locationData));
-    }
-    // Get Location(s)
-    getLocations() {
-        this.destroyScrollMagic();
-        if (this.locationData.length > 1) {
-            this.setLocations(JSON.stringify(this.locations));
+        if (this.berries.length > 1 &&
+            section == 'berries') {
+            //console.log('load evolutions from cache');
+            this.setSectionList('berries', this.berries);
             return false;
         }
-        this.http.get(this.pokemonApiBase + '/api/v2/location/')
-            .subscribe(response => this.setLocations(response));
+        this.http.get(this.pokemonApiBase + sectionDataUrl)
+            .subscribe(response => this.setSectionList(section, response));
     }
-    // Set Location(s)
-    setLocations(locations) {
+    // Set Section List
+    setSectionList(section, data) {
         let holder = this;
-        if (holder.pokemonList.length > 1) {
-            this.sectionDisplay = 'locations';
-            setTimeout(function() {
-                holder.startScrollMagic('locations');
-            }, 1000);
-            return false;
-        }
-        let locationsResults = locations.json();
-        holder.pokemonList = locationsResults;
-        localStorage.setItem('osbPocketPoke.locations', JSON.stringify(holder.locations));
-        let locationCount = 0;
-        holder.locationsCount = locationsResults.count;
-        locationsResults.results.forEach(function(element, index, array) {
-            locationCount++;
-            if (locationCount === array.length) {
-                setTimeout(function() {
-                    holder.startScrollMagic('locations');
-                }, 3500);
-            } else {
-                holder.locations.push(element);
-                holder.getLocation(element);
-            }
-        });
-    }
-    // Get More Pokemon (Pagination)
-    getMorePokemon() {
-        let holder = this;
-        holder.pokeCallbackCount = 1;
-        let pokePageCount = holder.pageLength;
-        let page = holder.pageLength;
-        holder.pokePageCount++;
-        if (holder.pokePageCount > 1) {
-            page = page * holder.pokePageCount;
-        }
-        this.http.get(this.pokemonApiBase + '/api/v2/pokemon/?limit=' + pokePageCount + '&offset=' + page)
-            .subscribe(response => this.setMorePokemon(response));
-    }
-    // Set More Pokemon (Pagination)
-    setMorePokemon(pokemonList) {
-        let holder = this;
-        let pokemonUpdate = pokemonList.json();
-        pokemonUpdate.results.forEach(function(element) {
-            holder.http.get(element.url)
-                .subscribe(response => holder.updatePokemon(response));
-        });
-    }
-    // Update Pokemon List
-    updatePokemon(pokemon) {
-        let pokeData = pokemon.json();
-        this.pokemon.push(pokeData);
-        this.pokeCallbackCount++;
-        if (this.pokeCallbackCount === this.pageLength) {
-            document.querySelector('#loading-trigger').classList.remove('active');
-        }
-    }
-    // Get Pokemon
-    getPokemon(pokemon, newList) {
-        this.sectionDisplay = 'pokemon';
-        let holder = this;
-        if (!newList) {
-            if (holder.pokemon.length > 1) {
-                return false;
-            }
-        }
-        this.http.get(pokemon.url)
-            .subscribe(response => this.setPokemon(response, newList));
-    }
-    // Set Pokemon
-    setPokemon(pokemon, newList) {
-        let holder = this;
-        holder.pokemon.push(pokemon.json());
-        if (!newList) {
-            // Cache size too small for full listing storage
-            localStorage.setItem('osbPocketPoke.pokemon', JSON.stringify(holder.pokemon));
-        } else {
-            holder.pokeCallbackCount++;
-            if (holder.pokeCallbackCount === holder.pageLength) {
-                console.log('Callback');
-                document.querySelector('#loading-trigger').classList.remove('active');
-            }
-        }
-    }
-    // Get Initial Poke List
-    getPokeList() {
-        this.destroyScrollMagic();
-        if (this.pokemon.length > 1) {
-            this.setPokeList(JSON.stringify(this.pokemonList));
-            return false;
-        }
-        this.http.get(this.pokemonApiBase + '/api/v2/pokemon/')
-            .subscribe(response => this.setPokeList(response));
-    }
-    // Get Initial Poke List
-    setPokeList(data) {
-        let holder = this;
-        if (holder.pokemonList.length > 1) {
+        if (section == 'pokemon' && this.pokemonList.length > (this.pageLength - 1)) {
             this.sectionDisplay = 'pokemon';
             setTimeout(function() {
                 holder.startScrollMagic('pokemon');
             }, 1000);
             return false;
         }
+        if (section == 'locations' && this.locations.length > (this.pageLength - 1)) {
+            this.sectionDisplay = 'locations';
+            setTimeout(function() {
+                holder.startScrollMagic('locations');
+            }, 1000);
+            return false;
+        }
+        if (section == 'evolutions' && this.evolutions.length > (this.pageLength - 1)) {
+            this.sectionDisplay = 'evolutions';
+            setTimeout(function() {
+                holder.startScrollMagic('evolutions');
+            }, 1000);
+            return false;
+        }
+        if (section == 'berries' && this.berries.length > (this.pageLength - 1)) {
+            this.sectionDisplay = 'berries';
+            setTimeout(function() {
+                holder.startScrollMagic('berries');
+            }, 1000);
+            return false;
+        }
+
         let feed = data.json();
-        holder.pokemonList = feed;
-        localStorage.setItem('osbPocketPoke', JSON.stringify(feed.results));
-        let pokeCount = 0;
-        holder.pokeListCount = feed.count;
-        feed.results.forEach(function(element, index, array) {
-            pokeCount++;
-            if (pokeCount === array.length) {
-                setTimeout(function() {
-                    holder.startScrollMagic('pokemon');
-                }, 3500);
-            } else {
-                holder.pokemonViewList.push(element);
-                holder.getPokemon(element, false);
-            }
-        });
+        if (section == 'pokemon') {
+            this.pokemonList = feed;
+            localStorage.setItem('osbPocketPoke', JSON.stringify(feed.results));
+
+            feed.results.forEach(function(element) {
+                holder.getSectionData('pokemon', element);
+            });
+        }
+        if (section == 'locations') {
+            this.locationData = feed;
+            localStorage.setItem('osbPocketPoke.locationsData', JSON.stringify(feed.results));
+
+            feed.results.forEach(function(element) {
+                holder.getSectionData('locations', element);
+            });
+        }
+        if (section == 'evolutions') {
+            this.evolutionChains = feed;
+            localStorage.setItem('osbPocketPoke.evolutionsData', JSON.stringify(feed.results));
+
+            feed.results.forEach(function(element) {
+                holder.getSectionData('evolutions', element);
+            });
+        }
+        if (section == 'berries') {
+            this.berriesData = feed;
+            localStorage.setItem('osbPocketPoke.berriesData', JSON.stringify(feed.results));
+
+            feed.results.forEach(function(element) {
+                holder.getSectionData('berries', element);
+            });
+        }
     }
 }
