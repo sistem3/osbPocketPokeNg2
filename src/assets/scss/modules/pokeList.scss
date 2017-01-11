@@ -15,6 +15,12 @@
 
     h2 {
       text-transform: capitalize;
+      
+      .fa-info-circle {
+        color: $cerulean;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+      }
     }
 
     .pokeball-holder {

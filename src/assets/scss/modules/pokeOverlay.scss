@@ -24,14 +24,38 @@
         }
       }
 
+      .base-stats {
+        display: inline-block;
+      }
+      
+      .typeHolder {
+        position: relative;
+        display: inline-block;
+
+        .typeIcon {
+          text-align: center;
+        }
+      }
+
       .close-btn {
         width: 30px;
         height: 30px;
+        font-size: 21px;
         position: absolute;
-        top: 10px;
+        top: 7px;
         right: 7px;
         z-index: 999;
         text-align: center;
+      }
+
+      .details {
+        margin-bottom: 0;
+        padding-bottom: 10px;
+        border-bottom: 1px solid $color-black;
+      }
+
+      .details:last-child {
+        border-bottom: none;
       }
 
       .details-list {
