@@ -103,19 +103,21 @@
                 <article class="col-md-8 chain">
                     <h5>{{ evolution.chain.species.name }}</h5>
                     <div><i class="fa fa-angle-down"></i></div>
-                    <h4 *ngIf="evolution.chain.evolves_to[0].species">{{ evolution.chain.evolves_to[0].species.name }}</h4>
-                    <p>
-                        <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_level">Min-Level = {{ evolution.chain.evolves_to[0].evolution_details.min_level }}</span>
-                        <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_happiness">Min-Happiness = {{ evolution.chain.evolves_to[0].evolution_details.min_happiness }}</span>
-                        <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_beauty">Min-Beauty = {{ evolution.chain.evolves_to[0].evolution_details.min_beauty }}</span>
-                    </p>
-                    <div *ngIf="evolution.chain.evolves_to[0].evolves_to[0]"><i class="fa fa-angle-down"></i></div>
-                    <h3 *ngIf="evolution.chain.evolves_to[0].evolves_to[0]">{{ evolution.chain.evolves_to[0].evolves_to[0].species.name }}</h3>
-                    <p *ngIf="evolution.chain.evolves_to[0].evolves_to[0]">
-                        <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_level">Min-Level = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_level }}</span>
-                        <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_happiness">Min-Happiness = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_happiness }}</span>
-                        <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_beauty">Min-Beauty = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_beauty }}</span>
-                    </p>
+                    <div *ngIf="evolution.chain.evolves_to[0]">
+                        <h4 *ngIf="evolution.chain.evolves_to[0].species">{{ evolution.chain.evolves_to[0].species.name }}</h4>
+                        <p>
+                            <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_level">Min-Level = {{ evolution.chain.evolves_to[0].evolution_details.min_level }}</span>
+                            <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_happiness">Min-Happiness = {{ evolution.chain.evolves_to[0].evolution_details.min_happiness }}</span>
+                            <span *ngIf="evolution.chain.evolves_to[0].evolution_details.min_beauty">Min-Beauty = {{ evolution.chain.evolves_to[0].evolution_details.min_beauty }}</span>
+                        </p>
+                        <div *ngIf="evolution.chain.evolves_to[0].evolves_to[0]"><i class="fa fa-angle-down"></i></div>
+                        <h3 *ngIf="evolution.chain.evolves_to[0].evolves_to[0]">{{ evolution.chain.evolves_to[0].evolves_to[0].species.name }}</h3>
+                        <p *ngIf="evolution.chain.evolves_to[0].evolves_to[0]">
+                            <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_level">Min-Level = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_level }}</span>
+                            <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_happiness">Min-Happiness = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_happiness }}</span>
+                            <span *ngIf="evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_beauty">Min-Beauty = {{ evolution.chain.evolves_to[0].evolves_to[0].evolution_details.min_beauty }}</span>
+                        </p>
+                    </div>
                 </article>
                 <div class="col-md-4 sprites">
                     <div></div>

@@ -150,7 +150,6 @@ export class OsbPocketPoke {
     }
     // Set Section Data
     setSectionData(section, data, cache) {
-        console.log(section);
         //console.log('Set section data. Section = ' + section);
         this.isLoading = false;
         if (section == 'pokemon') {
@@ -169,7 +168,6 @@ export class OsbPocketPoke {
                 localStorage.setItem('osbPocketPoke.locations', JSON.stringify(this.locations));
             }
             if (this.locations.length > ((this.pageLength - 1) * this.locationsPageCount)) {
-                console.log('Start locations');
                 document.querySelector('#locations-loading-trigger').classList.remove('active');
                 this.startScrollMagic('locations');
             }
