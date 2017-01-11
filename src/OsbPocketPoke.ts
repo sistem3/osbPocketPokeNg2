@@ -105,31 +105,23 @@ export class OsbPocketPoke {
                 if (section === 'pokemon' &&
                     document.querySelector(trigger).className.indexOf('active') == -1) {
                     document.querySelector(trigger).classList.add('active');
-                    console.log('Load more pokemon');
                     holder.pokePageCount++;
-                    console.log(holder.pokePageCount);
                     holder.getSectionList('pokemon', holder.pokePageCount);
                 } else if (section === 'locations' &&
                     document.querySelector(trigger).className.indexOf('active') == -1) {
                     document.querySelector(trigger).classList.add('active');
-                    console.log('Load more locations');
                     holder.locationsPageCount++;
-                    console.log(holder.locationsPageCount);
                     holder.getSectionList('locations', holder.locationsPageCount);
                 } else if (section === 'evolutions' &&
                     document.querySelector(trigger).className.indexOf('active') == -1) {
                     document.querySelector(trigger).classList.add('active');
-                    console.log('Load more evolutions');
                     holder.evolutionsPageCount++;
-                    console.log(holder.evolutionsPageCount);
                     holder.getSectionList('evolutions', holder.evolutionsPageCount);
 
                 } else if (section === 'berries' &&
                     document.querySelector(trigger).className.indexOf('active') == -1) {
                     document.querySelector(trigger).classList.add('active');
-                    console.log('Load more berries');
                     holder.berriesPageCount++;
-                    console.log(holder.berriesPageCount);
                     holder.getSectionList('berries', holder.berriesPageCount);
                 }
             });
@@ -151,58 +143,54 @@ export class OsbPocketPoke {
         localStorage.setItem('osbPocketPoke.caughtPokemon', JSON.stringify(this.caughtPokemon));
     }
     // Get Section Data
-    getSectionData(section, item) {
+    getSectionData(section, item, cache) {
         this.sectionDisplay = section;
         this.http.get(item.url)
-            .subscribe(response => this.setSectionData(section, response));
-
-        /*console.log('Pagination Callback trigger');
-         document.querySelector('#loading-trigger').classList.remove('active');*/
+            .subscribe(response => this.setSectionData(section, response, cache));
     }
     // Set Section Data
-    setSectionData(section, data) {
+    setSectionData(section, data, cache) {
+        console.log(section);
+        //console.log('Set section data. Section = ' + section);
         this.isLoading = false;
         if (section == 'pokemon') {
             this.pokemon.push(data.json());
-            if (this.pokemon.length < (this.pageLength + 1)) {
-                console.log('cache initial pokemon');
+            if (this.pokemon.length < ((this.pageLength + 1) * this.pokePageCount) && !cache) {
                 localStorage.setItem('osbPocketPoke.pokemon', JSON.stringify(this.pokemon));
             }
-            if (this.pokemon.length > (this.pageLength - 1)) {
-                console.log('Start scroll pokemon');
+            if (this.pokemon.length > ((this.pageLength - 1) * this.pokePageCount)) {
+                document.querySelector('#loading-trigger').classList.remove('active');
                 this.startScrollMagic('pokemon');
             }
         }
         if (section == 'locations') {
             this.locations.push(data.json());
-            if (this.locations.length < (this.pageLength + 1)) {
-                console.log('cache initial locations');
+            if (this.locations.length < ((this.pageLength + 1) * this.locationsPageCount) && !cache) {
                 localStorage.setItem('osbPocketPoke.locations', JSON.stringify(this.locations));
             }
-            if (this.locations.length > (this.pageLength - 1)) {
-                console.log('Start scroll locations');
+            if (this.locations.length > ((this.pageLength - 1) * this.locationsPageCount)) {
+                console.log('Start locations');
+                document.querySelector('#locations-loading-trigger').classList.remove('active');
                 this.startScrollMagic('locations');
             }
         }
         if (section == 'evolutions') {
             this.evolutions.push(data.json());
-            if (this.evolutions.length < (this.pageLength + 1)) {
-                console.log('cache initial locations');
+            if (this.evolutions.length < ((this.pageLength + 1) * this.evolutionsPageCount) && !cache) {
                 localStorage.setItem('osbPocketPoke.evolutions', JSON.stringify(this.evolutions));
             }
-            if (this.evolutions.length > (this.pageLength - 1)) {
-                console.log('Start scroll evolutions');
+            if (this.evolutions.length > ((this.pageLength - 1) * this.evolutionsPageCount)) {
+                document.querySelector('#evolutions-loading-trigger').classList.remove('active');
                 this.startScrollMagic('evolutions');
             }
         }
         if (section == 'berries') {
             this.berries.push(data.json());
-            if (this.berries.length < (this.pageLength + 1)) {
-                console.log('cache initial locations');
+            if (this.berries.length < ((this.pageLength + 1) * this.berriesPageCount) && cache) {
                 localStorage.setItem('osbPocketPoke.berries', JSON.stringify(this.berries));
             }
-            if (this.berries.length > (this.pageLength - 1)) {
-                console.log('Start scroll berries');
+            if (this.berries.length > ((this.pageLength - 1) * this.berriesPageCount)) {
+                document.querySelector('#berries-loading-trigger').classList.remove('active');
                 this.startScrollMagic('berries');
             }
         }
@@ -226,70 +214,68 @@ export class OsbPocketPoke {
                 sectionDataUrl = '/api/v2/berry/';
                 break;
         }
-        console.log(page);
         if (page > 1) {
-            console.log('Get next page');
             let pageOffset = (page - 1) * this.pageLength;
-            console.log(pageOffset);
             sectionDataUrl = sectionDataUrl + '?limit=' + this.pageLength + '&offset=' + pageOffset;
 
             this.http.get(this.pokemonApiBase + sectionDataUrl)
-                .subscribe(response => this.setSectionList(section, response));
+                .subscribe(response => this.setSectionList(section, response, true));
 
             return false;
         }
         if (this.pokemon.length > 1 &&
             section == 'pokemon') {
             //console.log('load poke from cache');
-            this.setSectionList('pokemon', this.pokemon);
+            this.setSectionList('pokemon', this.pokemon, false);
             return false;
         }
         if (this.locations.length > 1 &&
             section == 'locations') {
             //console.log('load location from cache');
-            this.setSectionList('locations', this.locations);
+            this.setSectionList('locations', this.locations, false);
             return false;
         }
         if (this.evolutions.length > 1 &&
             section == 'evolutions') {
             //console.log('load evolutions from cache');
-            this.setSectionList('evolutions', this.evolutions);
+            this.setSectionList('evolutions', this.evolutions, false);
             return false;
         }
         if (this.berries.length > 1 &&
             section == 'berries') {
             //console.log('load evolutions from cache');
-            this.setSectionList('berries', this.berries);
+            this.setSectionList('berries', this.berries, false);
             return false;
         }
         this.http.get(this.pokemonApiBase + sectionDataUrl)
-            .subscribe(response => this.setSectionList(section, response));
+            .subscribe(response => this.setSectionList(section, response, false));
     }
     // Set Section List
-    setSectionList(section, data) {
+    setSectionList(section, data, paginated) {
+        //console.log('Set section list data. Section = ' + section);
         let holder = this;
-        if (section == 'pokemon' && this.pokemonList.length > (this.pageLength - 1)) {
+        if (section == 'pokemon' && this.pokemonList.length > (this.pageLength - 1) && !paginated) {
             this.sectionDisplay = 'pokemon';
             setTimeout(function() {
                 holder.startScrollMagic('pokemon');
             }, 1000);
             return false;
         }
-        if (section == 'locations' && this.locations.length > (this.pageLength - 1)) {
+        if (section == 'locations' && this.locations.length > (this.pageLength - 1) && !paginated) {
             this.sectionDisplay = 'locations';
             setTimeout(function() {
                 holder.startScrollMagic('locations');
             }, 1000);
             return false;
         }
-        if (section == 'evolutions' && this.evolutions.length > (this.pageLength - 1)) {
+        if (section == 'evolutions' && this.evolutions.length > (this.pageLength - 1) && !paginated) {
             this.sectionDisplay = 'evolutions';
             setTimeout(function() {
                 holder.startScrollMagic('evolutions');
             }, 1000);
             return false;
         }
-        if (section == 'berries' && this.berries.length > (this.pageLength - 1)) {
+        if (section == 'berries' && this.berries.length > (this.pageLength - 1) && !paginated) {
             this.sectionDisplay = 'berries';
             setTimeout(function() {
                 holder.startScrollMagic('berries');
@@ -300,34 +286,38 @@ export class OsbPocketPoke {
         let feed = data.json();
         if (section == 'pokemon') {
             this.pokemonList = feed;
-            localStorage.setItem('osbPocketPoke', JSON.stringify(feed.results));
-
+            if (!paginated) {
+                localStorage.setItem('osbPocketPoke', JSON.stringify(feed.results));
+            }
             feed.results.forEach(function(element) {
-                holder.getSectionData('pokemon', element);
+                holder.getSectionData('pokemon', element, paginated);
             });
         }
         if (section == 'locations') {
             this.locationData = feed;
-            localStorage.setItem('osbPocketPoke.locationsData', JSON.stringify(feed.results));
-
+            if (!paginated) {
+                localStorage.setItem('osbPocketPoke.locationsData', JSON.stringify(feed.results));
+            }
             feed.results.forEach(function(element) {
-                holder.getSectionData('locations', element);
+                holder.getSectionData('locations', element, paginated);
             });
         }
         if (section == 'evolutions') {
             this.evolutionChains = feed;
-            localStorage.setItem('osbPocketPoke.evolutionsData', JSON.stringify(feed.results));
-
+            if (!paginated) {
+                localStorage.setItem('osbPocketPoke.evolutionsData', JSON.stringify(feed.results));
+            }
             feed.results.forEach(function(element) {
-                holder.getSectionData('evolutions', element);
+                holder.getSectionData('evolutions', element, paginated);
             });
         }
         if (section == 'berries') {
             this.berriesData = feed;
-            localStorage.setItem('osbPocketPoke.berriesData', JSON.stringify(feed.results));
-
+            if (!paginated) {
+                localStorage.setItem('osbPocketPoke.berriesData', JSON.stringify(feed.results));
+            }
             feed.results.forEach(function(element) {
-                holder.getSectionData('berries', element);
+                holder.getSectionData('berries', element, paginated);
             });
         }
     }
