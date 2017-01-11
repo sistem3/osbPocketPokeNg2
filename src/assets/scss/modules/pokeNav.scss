@@ -1,19 +1,38 @@
 [override] osb-pocket-poke {
   header {
+    h1 {
+      font-size: 26px;
+      margin: 0;
+    }
+
     h1, nav {
       display: inline-block;
     }
 
     nav {
+      min-height: 60px;
       margin-left: 10px;
       position: relative;
-      top: -10px;
+      padding-top: 10px;
+
+      .navToggle {
+        position: relative;
+        top: -4px;
+      }
+
+      ul {
+        margin-bottom: 0;
+      }
+
+      button {
+        margin-bottom: 14px;
+      }
 
       li:last-child {
         i {
           font-size: 30px;
           position: relative;
-          top: 6px;
+          top: 4px;
         }
       }
     }

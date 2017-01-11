@@ -8,7 +8,7 @@
                 <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'evolution'}"><button class="btn btn-primary" (click)="getSectionList('evolutions', 1)"><i class="poke-icon poke-icon-strain"></i> Evolutions</button></li>
                 <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'berries'}"><button class="btn btn-primary" (click)="getSectionList('berries', 1)"><i class="poke-icon poke-icon-berry"></i> Berries</button></li>
                 <li *ngIf="!navHidden"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></li>
-                <li (click)="navHidden = !navHidden"><i class="fa" [ngClass]="{'fa-angle-right' : navHidden, 'fa-angle-left' : !navHidden}"></i></li>
+                <li (click)="navHidden = !navHidden"><i class="navToggle fa" [ngClass]="{'fa-angle-right' : navHidden, 'fa-angle-left' : !navHidden}"></i></li>
                 <li><h1><i class="poke-icon poke-icon-pokeball"></i> PocketPoké</h1></li>
             </ul>
         </nav>
