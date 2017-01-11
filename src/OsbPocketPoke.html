@@ -43,7 +43,7 @@
                     <div class="spriteBg"></div>
                 </div>
                 <h2>{{ poke.name }}
-                    <span title="More info">
+                    <span title="More info" (click)="showOverlay('pokemon', poke)">
                         <i class="fa fa-info-circle"></i>
                     </span>
                     <span class="pull-right pokeball-holder" title="Capture Pokémon" (click)="capturePokemon(poke)">
@@ -54,24 +54,6 @@
                     </span>
                 </h2>
                 <p><strong>Height:</strong> {{ poke.height }} | <strong>Weight:</strong> {{ poke.weight }} | <strong>Base XP:</strong> {{ poke.base_experience }}</p>
-                <!--<h4 (click)="poke.statsVisible = !poke.statsVisible" class="details">Attributes <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !poke.statsVisible, 'fa-chevron-up' : poke.statsVisible}"></i></h4>
-                <ul class="list-unstyled details-list" [hidden]="!poke.statsVisible">
-                    <li *ngFor="let stats of poke.stats">
-                        <p><strong>{{stats.stat.name}}</strong> <span class="pull-right">{{stats.base_stat}}</span></p>
-                    </li>
-                </ul>
-                <h4 (click)="poke.abilitiesVisible = !poke.abilitiesVisible" class="details">Abilities <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !poke.abilitiesVisible, 'fa-chevron-up' : poke.abilitiesVisible}"></i></h4>
-                <ul class="list-unstyled details-list" [hidden]="!poke.abilitiesVisible">
-                    <li *ngFor="let ability of poke.abilities">
-                        <p>{{ability.ability.name}} <i class="fa fa-info-circle pull-right"></i></p>
-                    </li>
-                </ul>
-                <h4 (click)="poke.movesVisible = !poke.movesVisible" class="details">Moves <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !poke.movesVisible, 'fa-chevron-up' : poke.movesVisible}"></i></h4>
-                <ul class="list-unstyled details-list moves" [hidden]="!poke.movesVisible">
-                    <li *ngFor="let move of poke.moves">
-                        <p><i class="fa fa-star"></i> {{move.move.name}}</p>
-                    </li>
-                </ul>-->
             </li>
             <li class="pokeListItem">
                 <div id="loading-trigger" class="img-holder text-center">
@@ -136,7 +118,7 @@
             <li *ngFor="let berry of berries" class="pokeListItem">
                 <h3 class="text-center">{{ berry.name }}</h3>
                 <div class="col-md-8">
-                    <h4 (click)="berry.statsHidden = !berry.statsHidden">Stats</h4>
+                    <h4 (click)="berry.statsHidden = !berry.statsHidden">Stats <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !berry.statsHidden, 'fa-chevron-up' : berry.statsHidden}"></i></h4>
                     <ul class="list-unstyled" *ngIf="berry.statsHidden">
                         <li>Size: {{ berry.size }}</li>
                         <li>Max Harvest: {{ berry.max_harvest }}</li>
@@ -147,7 +129,7 @@
                     </ul>
                 </div>
                 <div class="col-md-4">
-                    <h4 (click)="berry.flavorHidden = !berry.flavorHidden">Flavours</h4>
+                    <h4 (click)="berry.flavorHidden = !berry.flavorHidden">Flavours <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !berry.flavorHidden, 'fa-chevron-up' : berry.flavorHidden}"></i></h4>
                     <ul class="list-unstyled" *ngIf="berry.flavorHidden">
                         <li *ngFor="let flavor of berry.flavors">
                             {{ flavor.flavor.name }} <span>{{ flavor.potency }}</span>
@@ -155,7 +137,7 @@
                     </ul>
                 </div>
                 <div class="col-md-12">
-                    <h4>Natural Gift</h4>
+                    <h4>Natural Gift </h4>
                     <div class="typeIcon type-{{berry.natural_gift_type.name}}" title="Type: {{berry.natural_gift_type.name}}">
                         <i class="poke-icon poke-icon-{{berry.natural_gift_type.name}}"></i> Power: {{berry.natural_gift_power}}
                     </div>
@@ -169,4 +151,38 @@
             </li>
         </ul>
     </section>
+    <section *ngIf="overlayShowing" class="pokeOverlay container">
+        <article class="col-md-8 col-md-offset-2">
+            <div class="close-btn" (click)="hideOverlay()">
+                <i class="fa fa-close"></i>
+            </div>
+            <div *ngIf="overlayContent && overlayType == 'pokemon'">
+                <h1><img src="{{overlayContent.sprites.front_default}}" alt="{{overlayContent.name}}" title="{{overlayContent.name}}" /> {{ overlayContent.name }}</h1>
+                <p><strong>Height:</strong> {{ overlayContent.height }} | <strong>Weight:</strong> {{ overlayContent.weight }} | <strong>Base XP:</strong> {{ overlayContent.base_experience }}</p>
+                <h4 (click)="overlayContent.statsVisible = !overlayContent.statsVisible" class="details">Attributes <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !overlayContent.statsVisible, 'fa-chevron-up' : overlayContent.statsVisible}"></i></h4>
+                <ul class="list-unstyled details-list" [hidden]="!overlayContent.statsVisible">
+                    <li *ngFor="let stats of overlayContent.stats">
+                        <p><strong>{{stats.stat.name}}</strong> <span class="pull-right">{{stats.base_stat}}</span></p>
+                    </li>
+                </ul>
+                <h4 (click)="overlayContent.abilitiesVisible = !overlayContent.abilitiesVisible" class="details">Abilities <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !overlayContent.abilitiesVisible, 'fa-chevron-up' : overlayContent.abilitiesVisible}"></i></h4>
+                <ul class="list-unstyled details-list" [hidden]="!overlayContent.abilitiesVisible">
+                    <li *ngFor="let ability of overlayContent.abilities">
+                        <p><strong>{{ability.ability.name}}</strong> <i class="fa fa-info-circle pull-right"></i></p>
+                    </li>
+                </ul>
+                <h4 (click)="overlayContent.movesVisible = !overlayContent.movesVisible" class="details">Moves <i class="fa pull-right" [ngClass]="{'fa-chevron-down' : !overlayContent.movesVisible, 'fa-chevron-up' : overlayContent.movesVisible}"></i></h4>
+                <ul class="list-unstyled list-inline details-list moves" [hidden]="!overlayContent.movesVisible">
+                    <li *ngFor="let move of overlayContent.moves">
+                        <p><i class="fa fa-star"></i> {{move.move.name}}</p>
+                    </li>
+                </ul>
+            </div>
+        </article>
+    </section>
+    <!--<section>
+        <div>
+            <i class="fa fa-spinner fa-spin"></i> Loading...
+        </div>
+    </section>-->
 </main>

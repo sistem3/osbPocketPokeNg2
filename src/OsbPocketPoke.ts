@@ -32,6 +32,9 @@ export class OsbPocketPoke {
     berriesPageCount = 1;
 
     pokemonScene;
+    overlayShowing = false;
+    overlayType = '';
+    overlayContent = {};
 
     constructor(public http: Http) {
         // Check Cache - Main
@@ -318,5 +321,17 @@ export class OsbPocketPoke {
                 holder.getSectionData('berries', element, paginated);
             });
         }
+    }
+    // Show Overlay
+    showOverlay(section, content) {
+        this.overlayType = section;
+        this.overlayContent = content;
+        this.overlayShowing = true;
+    }
+    // Hide Overlay
+    hideOverlay() {
+        this.overlayType = '';
+        this.overlayContent = {};
+        this.overlayShowing = false;
     }
 }

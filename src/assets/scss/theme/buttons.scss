@@ -13,7 +13,7 @@ $button-drop-size:  2px;
     &:active, &.active {
       background-color: $endeavour;
       box-shadow: none;
-      margin-bottom: -$button-drop-size;
+      margin-bottom: 8px;
       margin-top: $button-drop-size;
     }
 
