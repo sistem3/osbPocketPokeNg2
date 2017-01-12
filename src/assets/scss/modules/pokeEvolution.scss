@@ -4,7 +4,20 @@
 
     li {
       h3, h4, h5 {
-        margin: 10px 0;
+        margin-top: 0;
+      }
+
+      h3, h4 {
+        margin-top: 15px;
+      }
+
+      h5 {
+        margin-top: 40px;
+      }
+
+      p {
+        display: block;
+        margin: 0 !important;
       }
     }
   }
