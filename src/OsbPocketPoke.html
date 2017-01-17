@@ -4,7 +4,7 @@
             <ul class="list-unstyled list-inline">
                 <li><button class="btn btn-primary" (click)="navHidden = !navHidden"><i class="fa fa-bars"></i></button></li>
                 <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'pokemon'}"><button class="btn btn-primary" (click)="getSectionList('pokemon', 1)"><i class="poke-icon poke-icon-pokeball-open"></i> Pokémon</button></li>
-                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'evolution'}"><button class="btn btn-primary" (click)="getSectionList('evolutions', 1)"><i class="poke-icon poke-icon-strain"></i> Evolutions</button></li>
+                <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'evolutions'}"><button class="btn btn-primary" (click)="getSectionList('evolutions', 1)"><i class="poke-icon poke-icon-strain"></i> Evolutions</button></li>
                 <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'locations'}"><button class="btn btn-primary" (click)="getSectionList('locations', 1)"><i class="fa fa-map-marker"></i> Locations</button></li>
                 <li *ngIf="!navHidden" [ngClass]="{'active' : sectionDisplay == 'berries'}"><button class="btn btn-primary" (click)="getSectionList('berries', 1)"><i class="poke-icon poke-icon-berry"></i> Berries</button></li>
                 <li *ngIf="!navHidden"><button class="btn btn-primary"><i class="fa fa-search"></i> Search</button></li>
@@ -127,7 +127,7 @@
             </li>
         </ul>
     </section>
-    <section *ngIf="berries.length > 1 && sectionDisplay === 'berries'" class="pokeDex">
+    <section *ngIf="berries.length > 1 && sectionDisplay === 'berries'" class="pokeDex pokeBerries">
         <ul class="pokeList list-unstyled">
             <li *ngFor="let berry of berries" class="pokeListItem">
                 <h3 class="text-center">{{ berry.name }}</h3>
@@ -152,9 +152,12 @@
                 </div>
                 <div class="col-md-12">
                     <h4>Natural Gift </h4>
-                    <div class="typeIcon type-{{berry.natural_gift_type.name}}" title="Type: {{berry.natural_gift_type.name}}">
-                        <i class="poke-icon poke-icon-{{berry.natural_gift_type.name}}"></i> Power: {{berry.natural_gift_power}}
+                    <div class="typeHolder">
+                        <div class="typeIcon type-{{berry.natural_gift_type.name}}" title="Type: {{berry.natural_gift_type.name}}">
+                            <i class="poke-icon poke-icon-{{berry.natural_gift_type.name}}"></i>
+                        </div>
                     </div>
+                    Power: {{berry.natural_gift_power}}
                 </div>
             </li>
             <li class="pokeListItem">

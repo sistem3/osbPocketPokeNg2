@@ -1,0 +1,16 @@
+[override] osb-pocket-poke {
+  .pokeBerries {
+    .typeHolder {
+      position: relative;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      text-align: center;
+    }
+
+    h4 {
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+  }
+}

@@ -145,7 +145,7 @@
   background-color: $mirage;
 
   i {
-    color: $color-black;
+    color: mix($color-black, $color-white, 30);
   }
 }
 
@@ -153,7 +153,7 @@
   background-color: $gray-suit;
 
   i {
-    color: mix($color-white, $gray-suit, 30);
+    color: mix($color-black, $gray-suit, 30);
   }
 }
 

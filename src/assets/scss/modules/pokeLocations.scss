@@ -6,6 +6,16 @@
       }
     }
 
+    .pokeListItem {
+      p {
+        padding: 0 10px;
+      }
+    }
+    
+    .fa-map-marker {
+      color: $guardsman-red;
+    }
+
     .locations-list {
       list-style-type: disc;
       margin-bottom: 20px;
